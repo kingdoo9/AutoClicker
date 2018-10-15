@@ -3,13 +3,16 @@ package Events;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Setting.PanelSetting;
+
 public class ButtonListener implements ActionListener{
 	private static final long serialVersionUID = 1L;
 		private final String title;
-	
-		public ButtonListener(String title) {
+		private PanelSetting PS;
+		public ButtonListener(String title, PanelSetting PS) {
 		// TODO Auto-generated constructor stub
 			this.title = title;
+			this.PS = PS;
 		}
 
 		@Override
@@ -21,7 +24,7 @@ public class ButtonListener implements ActionListener{
 			}else if(title.matches("Load")) {
 				System.out.println("loaded");
 			}else if(title.matches("save")) {
-				
+				PS.setVisible(false);
 			}
 			
 		}

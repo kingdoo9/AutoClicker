@@ -24,15 +24,16 @@ public class FramePanel extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Container content = this.getContentPane();
 		
+
+
+			
 		while(true) {	
 			Thread.sleep(120);
 			content.removeAll();
-	
 			//왼쪽 패널
 			PanelSetting left = new PanelSetting(0,0,500,465,new Color(213,242,211));
 			//오른쪽 패널
 			PanelSetting right = new PanelSetting(500,0,495,465,new Color(213,242,211));
-				
 			//F5, F6를 누르시오 패널
 			GuidePanel Guide = new GuidePanel(10,10,200,40,Color.white);				
 
@@ -47,8 +48,8 @@ public class FramePanel extends JFrame{
 			RightSettingPanel rightsetting = new RightSettingPanel(10, 10, 475, 445, Color.white);
 			
 			//저장, 불러오기 버튼
-			ButtonSetting save = new ButtonSetting("Save", 10, 420, 80, 30);
-			ButtonSetting load = new ButtonSetting("Load", 100, 420, 80, 30);
+			ButtonSetting save = new ButtonSetting("Save", 10, 420, 80, 30,Routine);
+			ButtonSetting load = new ButtonSetting("Load", 100, 420, 80, 30,Routine);
 			
 			
 			

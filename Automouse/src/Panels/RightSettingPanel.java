@@ -8,7 +8,7 @@ import Setting.PanelSetting;
 
 public class RightSettingPanel extends PanelSetting{
 	private static final long serialVersionUID = 1L;
-	ButtonSetting save = new ButtonSetting("save", 20, 405, 50, 30);
+	ButtonSetting save = new ButtonSetting("save", 20, 405, 50, 30,this);
 	
 	
 	public RightSettingPanel(int x, int y, int width, int height, Color color) {
