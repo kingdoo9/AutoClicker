@@ -1,17 +1,21 @@
-package Setting;
+package Panels;
 
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.MouseInfo;
 import javax.swing.JFrame;
-import Views.RightSettingView;
-import Views.SettingView;
 
-public class FrameSetting extends JFrame{
+import Panels.RightSettingPanel;
+import Panels.SettingPanel;
+import Setting.ButtonSetting;
+import Setting.LabelSetting;
+import Setting.PanelSetting;
+
+public class FramePanel extends JFrame{
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("deprecation")
-	public FrameSetting() throws InterruptedException {
+	public FramePanel() throws InterruptedException {
 		super("AutoSetting");
 
 		this.setBounds(500,500,1000,500);
@@ -30,20 +34,17 @@ public class FrameSetting extends JFrame{
 			PanelSetting right = new PanelSetting(500,0,495,465,new Color(213,242,211));
 				
 			//F5, F6를 누르시오 패널
-			PanelSetting StartGuide = new PanelSetting(10,10,200,40,Color.white);				
-			StartGuide.add(new LabelSetting("F5: start", 10, 10, 80, 20));
-			StartGuide.add(new LabelSetting("F6: stop", 100, 10, 80, 20));
-			
+			GuidePanel Guide = new GuidePanel(10,10,200,40,Color.white);				
+
 			//마우스 패널
-			PanelSetting Mouse = new PanelSetting(220,10,270,40,Color.white);
-			Mouse.add(new LabelSetting("Mouse       X: "+Mouse.mouse.MouseGetX()+"     Y: "+Mouse.mouse.MouseGetY(), 10, 10, 250, 20));
-	
+			MousePanel Mouse = new MousePanel(220,10,270,40,Color.white);
+			
 			//루틴 패널
-			PanelSetting Routine = new PanelSetting(10,60,250,350,Color.white);
+			RoutinePanel Routine = new RoutinePanel(10,60,250,350,Color.white);
 			
 			//설정 패널
-			SettingView Setting = new SettingView(270,60,220,350,Color.white);
-			RightSettingView rightsetting = new RightSettingView(10, 10, 475, 445, Color.white);
+			SettingPanel Setting = new SettingPanel(270,60,220,350,Color.white);
+			RightSettingPanel rightsetting = new RightSettingPanel(10, 10, 475, 445, Color.white);
 			
 			//저장, 불러오기 버튼
 			ButtonSetting save = new ButtonSetting("Save", 10, 420, 80, 30);
@@ -55,7 +56,7 @@ public class FrameSetting extends JFrame{
 	//			System.out.println("yes");
 	//		}
 			
-			left.add(StartGuide);
+			left.add(Guide);
 			left.add(Mouse);
 			left.add(Routine);
 			left.add(Setting);

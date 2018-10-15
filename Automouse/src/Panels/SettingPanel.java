@@ -1,4 +1,4 @@
-package Views;
+package Panels;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -7,10 +7,10 @@ import Setting.ButtonSetting;
 import Setting.LabelSetting;
 import Setting.PanelSetting;
 
-public class SettingView extends PanelSetting{
+public class SettingPanel extends PanelSetting{
 	private static final long serialVersionUID = 1L;
 
-	public SettingView(int x, int y, int width, int height, Color color) {
+	public SettingPanel(int x, int y, int width, int height, Color color) {
 		super(x, y, width, height, color);
 		// TODO Auto-generated constructor stub
 		

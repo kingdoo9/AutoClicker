@@ -12,10 +12,11 @@ public class ButtonSetting extends JButton{
 
 	public ButtonSetting(String title, int x, int y, int width, int height) {
 		super(title);
+		ButtonListener BL = new ButtonListener(title);
 		this.setFont(new Font(title,Font.BOLD,15));
 		this.setBounds(x, y, width, height);
 		this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY));
 		this.setBackground(Color.LIGHT_GRAY);
-		this.addActionListener(new ButtonListener(title));
+		this.addActionListener(BL);
 	}
 }
