@@ -25,6 +25,8 @@ public class ButtonListener implements ActionListener{
 				System.out.println("loaded");
 			}else if(title.matches("save")) {
 				PS.setVisible(false);
+			}else {
+				PS.setVisible(true);
 			}
 			
 		}

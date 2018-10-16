@@ -16,6 +16,7 @@ public class RightSettingPanel extends PanelSetting{
 		super(x, y, width, height, color);
 		MouseEvent me = new MouseEvent();
 		this.add(save);
+		this.setVisible(false);
 	}
 
 }
