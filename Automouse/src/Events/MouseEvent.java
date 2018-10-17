@@ -10,15 +10,27 @@ import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.MouseInputListener;
 import javax.swing.plaf.basic.BasicTableUI.MouseInputHandler;
 
+import Data.Click;
+import Panels.RightSettingPanel;
+import Setting.DataSetting;
+import Setting.PanelSetting;
+
 public class MouseEvent implements MouseInputListener{
 	private static final long serialVersionUID = 1L;
-		int mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX();
-		int mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY();
+		private int mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX();
+		private int mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY();
+		private int ClickX=0, ClickY= 0;
+		private PanelSetting PS;
+
+		
 	
+		public MouseEvent(PanelSetting ps) {
+			// TODO Auto-generated constructor stub
+			this.PS = ps;
+		}
 		@Override
 		public void mousePressed(java.awt.event.MouseEvent e) {
 			// TODO Auto-generated method stub
-			System.out.println("preesss");
 		}
 		@Override
 		public void mouseReleased(java.awt.event.MouseEvent e) {
@@ -56,6 +68,13 @@ public class MouseEvent implements MouseInputListener{
 			
 			return mouseY;
 		}
+		public int getClickX() {
+			return ClickX;
+		}public int getClickY() {
+			return ClickY;
+		}
+		
+
 		
 	
 }

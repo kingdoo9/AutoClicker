@@ -36,19 +36,19 @@ public class FramePanel extends JFrame{
 		//저장, 불러오기 버튼
 		ButtonSetting save = new ButtonSetting("Save", 10, 420, 80, 30,Routine);
 		ButtonSetting load = new ButtonSetting("Load", 100, 420, 80, 30,Routine);
+		//오른쪽 패널
+		PanelSetting right = new MainPanel(500,0,495,465,new Color(213,242,211));	
 			
 		while(true) {	
 			Thread.sleep(120);
 			content.removeAll();
 			//왼쪽 패널
-			PanelSetting left = new PanelSetting(0,0,500,465,new Color(213,242,211));
-			//오른쪽 패널
-			PanelSetting right = new PanelSetting(500,0,495,465,new Color(213,242,211));	
+			PanelSetting left = new MainPanel(0,0,500,465,new Color(213,242,211));
+
 
 			//마우스 패널
 			MousePanel Mouse = new MousePanel(220,10,270,40,Color.white);	
 			
-
 	//		for(int i=0; i<Routine.countComponents(); i++) {
 	//			System.out.println("yes");
 	//		}

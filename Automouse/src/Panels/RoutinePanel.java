@@ -1,7 +1,8 @@
 package Panels;
 
 import java.awt.Color;
-import Setting.LabelSetting;
+
+import Setting.DataSetting;
 import Setting.PanelSetting;
 
 public class RoutinePanel extends PanelSetting{
@@ -10,6 +11,12 @@ public class RoutinePanel extends PanelSetting{
 	public RoutinePanel(int x, int y, int width, int height, Color color) {
 		super(x, y, width, height, color);
 		// TODO Auto-generated constructor stub
+		
+	}
+
+	@Override
+	public void view(DataSetting data) {
+		// TODO Auto-generated method stub
 		
 	}
 

@@ -10,7 +10,7 @@ public class Main {
 
 		new Panels.FramePanel();
 		
-//		Robot bot = new Robot();
+		Robot bot = new Robot();
 //		bot.mouseMove(50, 50); // 5분의 4정도 만 움직인다.
 //		bot.mousePress(InputEvent.BUTTON1_MASK);
 //		bot.mouseMove(500, 500);
