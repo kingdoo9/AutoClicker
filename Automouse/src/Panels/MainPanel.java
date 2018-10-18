@@ -13,10 +13,4 @@ public class MainPanel extends PanelSetting{
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public void view(DataSetting data) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

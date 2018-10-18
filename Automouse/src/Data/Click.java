@@ -7,6 +7,7 @@ public class Click extends DataSetting{
 
 	public char[] getKind() {
 		return kind;
+		
 	}
 	
 }

@@ -1,15 +1,17 @@
 package Setting;
 
 import java.awt.Color;
+import java.io.Serializable;
 
-public abstract class DataSetting {
-	private int SmouseX;
-	private int SmouseY;
-	private int EmouseX;
-	private int EmouseY;
-	private int Number;
-	private int repeat;
-	private int Delay;
+public abstract class DataSetting implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private int SmouseX=0;
+	private int SmouseY=0;
+	private int EmouseX=0;
+	private int EmouseY=0;
+	private int Number=0;
+	private int repeat=0;
+	private int Delay=0;
 	private Color RGB;
 	private char[] kind;
 	

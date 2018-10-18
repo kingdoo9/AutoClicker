@@ -1,33 +1,17 @@
 package Events;
 
-import java.awt.Component;
 import java.awt.MouseInfo;
-import java.awt.event.InputEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseMotionAdapter;
 
-import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.MouseInputListener;
-import javax.swing.plaf.basic.BasicTableUI.MouseInputHandler;
-
-import Data.Click;
-import Panels.RightSettingPanel;
-import Setting.DataSetting;
-import Setting.PanelSetting;
 
 public class MouseEvent implements MouseInputListener{
-	private static final long serialVersionUID = 1L;
-		private int mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX();
-		private int mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY();
-		private int ClickX=0, ClickY= 0;
-		private PanelSetting PS;
-
-		
-	
-		public MouseEvent(PanelSetting ps) {
-			// TODO Auto-generated constructor stub
-			this.PS = ps;
+		private int mouseX;
+		private int mouseY;
+		private Thread mousePoint= new mousePoint();
+		public MouseEvent() {
+			mousePoint.start();
 		}
+		
 		@Override
 		public void mousePressed(java.awt.event.MouseEvent e) {
 			// TODO Auto-generated method stub
@@ -68,12 +52,20 @@ public class MouseEvent implements MouseInputListener{
 			
 			return mouseY;
 		}
-		public int getClickX() {
-			return ClickX;
-		}public int getClickY() {
-			return ClickY;
-		}
 		
+		class mousePoint extends Thread implements Runnable{
+			
+			@Override
+			public void run(){ 
+				while (true){ 
+			        try{ 
+			        	mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX();
+			    		mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY();
+			    		Thread.sleep(120); 
+			        }catch (Exception ex){ } 
+				} 
+			}
+		}
 
 		
 	
