@@ -5,6 +5,8 @@ import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import Constants.Constant;
+
 public abstract class PanelSetting extends JPanel{
 	private static final long serialVersionUID = 1L;
 	

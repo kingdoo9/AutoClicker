@@ -3,10 +3,11 @@ package Data;
 import Setting.DataSetting;
 
 public class Delay extends DataSetting {
-	private char[] kind = {'D'};
+	private char[] element = {'D'};
 
-	public char[] getKind() {
-		return kind;
+	public Delay() {
+		this.setKind(element);
+		this.setName("Delay");
 	}
 	
 }

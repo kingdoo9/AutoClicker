@@ -3,10 +3,11 @@ package Data;
 import Setting.DataSetting;
 
 public class ColorS extends DataSetting {
-	private char[] kind = {'M','C'};
+	private char[] element = {'M','C'};
 
-	public char[] getKind() {
-		return kind;
+	public ColorS() {
+		this.setKind(element);
+		this.setName("Color Start");
 	}
 	
 }

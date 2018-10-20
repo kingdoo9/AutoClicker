@@ -44,6 +44,7 @@ public class SettingPanel extends PanelSetting{
 		this.add(ColorS);
 		this.add(ColorE);
 
+
 		
 	}
 	
@@ -53,17 +54,20 @@ public class SettingPanel extends PanelSetting{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			switch(e.getActionCommand()) {
-			
 			case "Click Setting": 
+				Rightsetting.onSee_Focus();
 				Rightsetting.view(new Data.Click());
 				break;
 			case "Drag Setting": 
+				Rightsetting.onSee_Focus();
 				Rightsetting.view(new Data.Drag());
 				break;
 			case "Delay Setting": 
+				Rightsetting.onSee_Focus();
 				Rightsetting.view(new Data.Delay());
 				break;
 			case "Color Start": 
+				Rightsetting.onSee_Focus();
 				Rightsetting.view(new Data.ColorS());
 				break;
 			case "Color End": 

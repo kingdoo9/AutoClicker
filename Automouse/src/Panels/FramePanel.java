@@ -73,9 +73,11 @@ public class FramePanel extends JFrame{
 					Thread.sleep(120);
 
 					left.remove(Mouse);
+					left.remove(Routine);
 					//마우스 패널
 		    		Mouse = new MousePanel(220,10,270,40,Color.white);
-					
+					Routine = new RoutinePanel(10,60,250,350,Color.white);
+		    		
 					left.add(Mouse);
 					left.add(Guide);
 					left.add(Routine);

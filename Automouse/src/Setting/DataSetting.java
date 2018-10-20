@@ -9,11 +9,12 @@ public abstract class DataSetting implements Serializable{
 	private int SmouseY=0;
 	private int EmouseX=0;
 	private int EmouseY=0;
-	private int Number=0;
-	private int repeat=0;
-	private int Delay=0;
+	private int Number=1;
+	private int repeat=1;
+	private int Delay=100;
 	private Color RGB;
 	private char[] kind;
+	private String name;
 	
 	//get, set function
 	public int getSmouseX() {
@@ -36,6 +37,12 @@ public abstract class DataSetting implements Serializable{
 	}
 	public int getEmouseY() {
 		return EmouseY;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getName() {
+		return name;
 	}
 	
 	public void setEmouseY(int emouseY) {
@@ -64,6 +71,9 @@ public abstract class DataSetting implements Serializable{
 	}
 	public void setDelay(int delay) {
 		Delay = delay;
+	}
+	public void setKind(char[] kind) {
+		this.kind = kind;
 	}
 	public char[] getKind() {
 		return kind;
