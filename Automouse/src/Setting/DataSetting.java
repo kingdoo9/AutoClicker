@@ -15,6 +15,7 @@ public abstract class DataSetting implements Serializable{
 	private Color RGB;
 	private char[] kind;
 	private String name;
+	private boolean saved = false;
 	
 	//get, set function
 	public int getSmouseX() {
@@ -44,7 +45,6 @@ public abstract class DataSetting implements Serializable{
 	public String getName() {
 		return name;
 	}
-	
 	public void setEmouseY(int emouseY) {
 		EmouseY = emouseY;
 	}
@@ -78,6 +78,11 @@ public abstract class DataSetting implements Serializable{
 	public char[] getKind() {
 		return kind;
 	}
-	
+	public boolean isSaved() {
+		return saved;
+	}
+	public void setSaved(boolean saved) {
+		this.saved = saved;
+	}
 	
 }

@@ -18,6 +18,7 @@ import Setting.PanelSetting;
 public class RightSettingPanel extends PanelSetting{
 	private static final long serialVersionUID = 1L;
 	private ButtonSetting save;
+	private ButtonSetting Delete;
 	private ButtonSetting set1;
 	private ButtonSetting set2;
 	private ButtonSetting set3;
@@ -75,10 +76,13 @@ public class RightSettingPanel extends PanelSetting{
 			j += 60;
 		}
 		
-		save = new ButtonSetting("Save", 20, 405, 50, 30);
+		save = new ButtonSetting("Save", 20, 405, 80, 30);
 		save.addActionListener(new myActionListener());
+		Delete = new ButtonSetting("Delete",375,405,80,30);
+		Delete.addActionListener(new myActionListener());
 
 		this.add(save);
+		this.add(Delete);
 		this.setFocusable(see_Focus);
 		this.repaint();
 		this.setVisible(see_Focus);
@@ -113,9 +117,14 @@ public class RightSettingPanel extends PanelSetting{
 					break;
 				case "Save":
 					see_Focus = false;
-					Constant.data.add(Data);
+					if(!Data.isSaved()) Constant.data.add(Data);
+					Data.setSaved(true);
 					view(Data);
 					break;
+				case "Delete":
+					see_Focus = false;
+					if(Data.isSaved()) Constant.data.removeElement(Data);
+					view(Data);
 				}
 			}catch(Exception ex) {
 				

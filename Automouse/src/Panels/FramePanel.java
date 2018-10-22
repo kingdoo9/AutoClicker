@@ -2,12 +2,17 @@ package Panels;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+
 import Constants.Constant;
 import Setting.ButtonSetting;
+import Setting.DataSetting;
 import Setting.PanelSetting;
 
 public class FramePanel extends JFrame{
@@ -23,11 +28,14 @@ public class FramePanel extends JFrame{
 	private ButtonSetting load;
 	private PanelSetting right;
 	private PanelSetting left;
+	private Vector<DataSetting> isSame;
+	
+	ScrollRoutine ScrollR;
 
 	public FramePanel() throws InterruptedException {
 		super("AutoSetting");
 
-		this.setBounds(Constant.FrameBoundX,Constant.FrameBoundY,Constant.FrameWidth,Constant.Frameheight);
+		this.setPreferredSize(new Dimension(Constant.FrameWidth,Constant.Frameheight));
 		this.setLayout(null);
 		this.setResizable(false); //프레임 크기변경 불가능
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //윈도우창 X버튼누를때 강제종료
@@ -39,7 +47,9 @@ public class FramePanel extends JFrame{
 		rightsetting = new RightSettingPanel(10, 10, 475, 445, Color.white);
 		
 		//루틴 패널
-		Routine = new RoutinePanel(10,60,250,350,Color.white);
+		Routine = new RoutinePanel(10,60,250,350,Color.white,rightsetting);
+		//ScrollR = new ScrollRoutine();
+		//ScrollR.add(Routine);
 		
 		//F5, F6를 누르시오 패널
 		Guide = new GuidePanel(10,10,200,40,Color.white);	
@@ -63,9 +73,11 @@ public class FramePanel extends JFrame{
 		
 		runner.start();
 		this.setVisible(true);
+		this.pack();
 	}
 	class GThread extends Thread implements Runnable{
 		
+		@SuppressWarnings("unchecked")
 		@Override
 		public void run(){ 
 			while (true){ 
@@ -73,14 +85,15 @@ public class FramePanel extends JFrame{
 					Thread.sleep(120);
 
 					left.remove(Mouse);
-					left.remove(Routine);
-					//마우스 패널
+					//left.remove(Routine);
+					Routine.View();
+
 		    		Mouse = new MousePanel(220,10,270,40,Color.white);
-					Routine = new RoutinePanel(10,60,250,350,Color.white);
-		    		
+			    	//Routine = new RoutinePanel(10,60,250,350,Color.white);
+					left.add(Routine);
+
 					left.add(Mouse);
 					left.add(Guide);
-					left.add(Routine);
 					left.add(Setting);
 					left.add(save);
 					left.add(load);
