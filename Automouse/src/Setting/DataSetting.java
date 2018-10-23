@@ -12,10 +12,11 @@ public abstract class DataSetting implements Serializable{
 	private int Number=1;
 	private int repeat=1;
 	private int Delay=100;
-	private Color RGB;
+	private Color RGB = new Color(255,255,255);
 	private char[] kind;
 	private String name;
 	private boolean saved = false;
+	private boolean Holdon = false;
 	
 	//get, set function
 	public int getSmouseX() {
@@ -83,6 +84,12 @@ public abstract class DataSetting implements Serializable{
 	}
 	public void setSaved(boolean saved) {
 		this.saved = saved;
+	}
+	public boolean isHoldon() {
+		return Holdon;
+	}
+	public void setHoldon(boolean holdon) {
+		Holdon = holdon;
 	}
 	
 }

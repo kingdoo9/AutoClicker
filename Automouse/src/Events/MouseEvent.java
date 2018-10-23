@@ -1,6 +1,9 @@
 package Events;
 
+import java.awt.AWTException;
+import java.awt.Color;
 import java.awt.MouseInfo;
+import java.awt.Robot;
 
 import javax.swing.event.MouseInputListener;
 
@@ -51,6 +54,16 @@ public class MouseEvent implements MouseInputListener{
 		public int MouseGetY() {
 			
 			return mouseY;
+		}
+		
+		public Color getColor() {
+			try {
+				return new Robot().getPixelColor(mouseX, mouseY);
+			} catch (AWTException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
 		}
 		
 		class mousePoint extends Thread implements Runnable{

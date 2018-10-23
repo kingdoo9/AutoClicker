@@ -1,19 +1,26 @@
 package Panels;
 
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 import Constants.Constant;
+import Events.PlayEvent;
 import Setting.ButtonSetting;
 import Setting.DataSetting;
 import Setting.PanelSetting;
+import javafx.scene.input.KeyCode;
 
 public class FramePanel extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -28,20 +35,23 @@ public class FramePanel extends JFrame{
 	private ButtonSetting load;
 	private PanelSetting right;
 	private PanelSetting left;
-	private Vector<DataSetting> isSame;
+	private PlayEvent play;
 	
 	ScrollRoutine ScrollR;
 
-	public FramePanel() throws InterruptedException {
+	public FramePanel() throws InterruptedException, AWTException {
 		super("AutoSetting");
-
 		this.setPreferredSize(new Dimension(Constant.FrameWidth,Constant.Frameheight));
 		this.setLayout(null);
 		this.setResizable(false); //프레임 크기변경 불가능
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //윈도우창 X버튼누를때 강제종료
+
+		//플레이class
+		play = new PlayEvent();
 		
 		//컨테이너 (모든패널 저장공간)
 		content = this.getContentPane();
+		content.addKeyListener(new myActionListener());
 		
 		//오른쪽 안쪽 패널
 		rightsetting = new RightSettingPanel(10, 10, 475, 445, Color.white);
@@ -73,8 +83,10 @@ public class FramePanel extends JFrame{
 		
 		runner.start();
 		this.setVisible(true);
+		//this.setFocusable(true);
 		this.pack();
 	}
+	
 	class GThread extends Thread implements Runnable{
 		
 		@SuppressWarnings("unchecked")
@@ -83,13 +95,14 @@ public class FramePanel extends JFrame{
 			while (true){ 
 		        try{ 
 					Thread.sleep(120);
-
+				
+					if(!rightsetting.getSee_Focus()) content.setFocusable(true);
+					else content.setFocusable(false);	
+					
 					left.remove(Mouse);
-					//left.remove(Routine);
 					Routine.View();
 
 		    		Mouse = new MousePanel(220,10,270,40,Color.white);
-			    	//Routine = new RoutinePanel(10,60,250,350,Color.white);
 					left.add(Routine);
 
 					left.add(Mouse);
@@ -102,15 +115,15 @@ public class FramePanel extends JFrame{
 					
 					content.add(left);
 					content.add(right);
-
-						
+			
 					content.repaint();
+
 		        }catch (Exception ex){ } 
 			} 
 		}
 	}
 	
-	class myActionListener implements ActionListener{
+	class myActionListener implements ActionListener, KeyListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -120,6 +133,36 @@ public class FramePanel extends JFrame{
 			}else {
 				System.out.println("loaded");
 			}
+		}
+
+		@SuppressWarnings("deprecation")
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			if(e.getKeyCode() == KeyEvent.VK_F5) {
+				play.start();
+			}
+			if(e.getKeyCode() == KeyEvent.VK_F6) {
+				play.stop();
+				try {
+					play = new PlayEvent();
+				} catch (AWTException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 	

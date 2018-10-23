@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Constants.Constant;
 import Setting.ButtonSetting;
 import Setting.DataSetting;
 import Setting.PanelSetting;
@@ -70,7 +71,10 @@ public class SettingPanel extends PanelSetting{
 				Rightsetting.onSee_Focus();
 				Rightsetting.view(new Data.ColorS());
 				break;
-			case "Color End": 
+			case "Color End":
+				Rightsetting.onSee_Focus();
+				Rightsetting.Colorinit();
+				Rightsetting.view(new Data.ColorE());
 				break;
 				
 			}
