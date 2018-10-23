@@ -8,19 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.util.Vector;
 
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
 
 import Constants.Constant;
 import Events.PlayEvent;
 import Setting.ButtonSetting;
-import Setting.DataSetting;
 import Setting.PanelSetting;
-import javafx.scene.input.KeyCode;
 
 public class FramePanel extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -89,7 +83,6 @@ public class FramePanel extends JFrame{
 	
 	class GThread extends Thread implements Runnable{
 		
-		@SuppressWarnings("unchecked")
 		@Override
 		public void run(){ 
 			while (true){ 

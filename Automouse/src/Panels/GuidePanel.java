@@ -1,8 +1,6 @@
 package Panels;
 
 import java.awt.Color;
-import Setting.DataSetting;
-import Setting.LabelSetting;
 import Setting.PanelSetting;
 
 public class GuidePanel extends PanelSetting{

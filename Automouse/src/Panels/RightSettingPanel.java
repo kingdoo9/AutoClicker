@@ -1,26 +1,22 @@
 package Panels;
 
 import java.awt.Color;
-import java.awt.MouseInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import Constants.Constant;
 import Setting.ButtonSetting;
 import Setting.DataSetting;
 import Setting.PanelSetting;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 
 public class RightSettingPanel extends PanelSetting{
 	private static final long serialVersionUID = 1L;
-	private ButtonSetting save, Delete, set1, set2, set3, On, Off;
+	private ButtonSetting save, Delete, set1, set2, set3;
 	private Color ColorSet = new Color(255,255,255);
 	private DataSetting Data;
 	private Boolean see_Focus = false;
@@ -111,8 +107,6 @@ public class RightSettingPanel extends PanelSetting{
 
 	}
 
-
-	@SuppressWarnings("rawtypes")
 	class myActionListener implements ActionListener, KeyListener{
 
 		@Override

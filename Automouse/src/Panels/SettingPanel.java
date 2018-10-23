@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Constants.Constant;
 import Setting.ButtonSetting;
-import Setting.DataSetting;
 import Setting.PanelSetting;
 
 public class SettingPanel extends PanelSetting{

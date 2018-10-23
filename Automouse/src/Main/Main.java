@@ -1,11 +1,6 @@
 package Main;
 
-import java.awt.AWTEvent;
 import java.awt.AWTException;
-import java.awt.Toolkit;
-import java.awt.event.AWTEventListener;
-
-
 import Panels.FramePanel;
 
 
