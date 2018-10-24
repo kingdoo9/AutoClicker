@@ -13,14 +13,19 @@ public class PlayEvent extends Thread implements Runnable{
 	private Robot bot;
 	private Stack<Color> StackColor = new Stack<>();
 	private int ColorCount = 0; 
+	private int Runtimes=1; // 현재 몇번 돌고 있는지를 표시
+	private int repeatN=1;
 	
-	public PlayEvent() throws AWTException {
-		bot = new Robot();
+	public PlayEvent(int repeat) throws AWTException {
+		bot = new Robot(); //마우스의 실제 클릭을 눌러줄 친구.
+		repeatN = repeat; // 사용자가 지정한 횟수
 	}
+	
+	public int getRuntimes() {return Runtimes;}
 	
 	@Override
 	public void run() {
-		while(true) {
+		for(Runtimes=1; Runtimes<=repeatN; Runtimes++) {
 			try {
 				for(int j=0; j<Constant.data.size(); j++) {
 					DataSetting data = Constant.data.elementAt(j);
@@ -74,8 +79,6 @@ public class PlayEvent extends Thread implements Runnable{
 						break;
 					}
 				}
-				Thread.sleep(100);
-
 			}catch(Exception e) {}
 		}
 	}

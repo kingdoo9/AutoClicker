@@ -10,6 +10,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
 import Constants.Constant;
+import Labels.InputLabel;
+import Labels.NomalLabel;
 import Setting.ButtonSetting;
 import Setting.DataSetting;
 import Setting.PanelSetting;
@@ -43,10 +45,6 @@ public class RightSettingPanel extends PanelSetting{
 			for(char i : data.getKind()) {
 			if(i == 'M') {
 				this.add(new NomalLabel("Position : ", 20, j, 150, 30));
-				this.add(new NomalLabel("X: "+Integer.toString(Data.getSmouseX())+" Y: "+Integer.toString(Data.getSmouseY()),180,j,130,30));
-				this.add(new NomalLabel("(Hold-On '1' key)",310,j,130,30));
-			}else if(i == 'S') {
-				this.add(new NomalLabel("Start Position : ", 20, j, 150, 30));
 				this.add(new NomalLabel("X: "+Integer.toString(Data.getSmouseX())+" Y: "+Integer.toString(Data.getSmouseY()),180,j,130,30));
 				this.add(new NomalLabel("(Hold-On '1' key)",310,j,130,30));
 			}else if(i == 'E') {

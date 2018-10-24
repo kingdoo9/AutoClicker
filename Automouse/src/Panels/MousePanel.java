@@ -3,6 +3,7 @@ package Panels;
 import java.awt.Color;
 
 import Constants.Constant;
+import Labels.NomalLabel;
 import Setting.PanelSetting;
 
 public class MousePanel extends PanelSetting{

@@ -1,4 +1,4 @@
-package Panels;
+package Labels;
 
 import Setting.LabelSetting;
 

@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import Constants.Constant;
 import Events.PlayEvent;
@@ -30,8 +31,6 @@ public class FramePanel extends JFrame{
 	private PanelSetting right;
 	private PanelSetting left;
 	private PlayEvent play;
-	
-	ScrollRoutine ScrollR;
 
 	public FramePanel() throws InterruptedException, AWTException {
 		super("AutoSetting");
@@ -39,9 +38,6 @@ public class FramePanel extends JFrame{
 		this.setLayout(null);
 		this.setResizable(false); //프레임 크기변경 불가능
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //윈도우창 X버튼누를때 강제종료
-
-		//플레이class
-		play = new PlayEvent();
 		
 		//컨테이너 (모든패널 저장공간)
 		content = this.getContentPane();
@@ -52,8 +48,6 @@ public class FramePanel extends JFrame{
 		
 		//루틴 패널
 		Routine = new RoutinePanel(10,60,250,350,Color.white,rightsetting);
-		//ScrollR = new ScrollRoutine();
-		//ScrollR.add(Routine);
 		
 		//F5, F6를 누르시오 패널
 		Guide = new GuidePanel(10,10,200,40,Color.white);	
@@ -77,7 +71,6 @@ public class FramePanel extends JFrame{
 		
 		runner.start();
 		this.setVisible(true);
-		//this.setFocusable(true);
 		this.pack();
 	}
 	
@@ -116,8 +109,10 @@ public class FramePanel extends JFrame{
 		}
 	}
 	
+	//버튼 설정 및 F5, F6키에 대한 설정들
 	class myActionListener implements ActionListener, KeyListener{
 
+		//버튼 설정
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -128,21 +123,24 @@ public class FramePanel extends JFrame{
 			}
 		}
 
+		//키 설정
 		@SuppressWarnings("deprecation")
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
-			if(e.getKeyCode() == KeyEvent.VK_F5) {
-				play.start();
-			}
-			if(e.getKeyCode() == KeyEvent.VK_F6) {
-				play.stop();
-				try {
-					play = new PlayEvent();
-				} catch (AWTException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+			try {
+
+				if(e.getKeyCode() == KeyEvent.VK_F5) {
+					//반복횟수 설정 대화창
+					String D = JOptionPane.showInputDialog(null,"How many times will you repeat this?","input",JOptionPane.QUESTION_MESSAGE);
+					play = new PlayEvent(Integer.parseInt(D));
+					play.start();
 				}
+				if(e.getKeyCode() == KeyEvent.VK_F6) {
+					play.stop();
+				}
+			} catch (Exception e1) { // 숫자가 아닌 수가 입력되었을때 의 error 메시지
+				JOptionPane.showMessageDialog(null, "Number Format mismatch");
 			}
 		}
 
