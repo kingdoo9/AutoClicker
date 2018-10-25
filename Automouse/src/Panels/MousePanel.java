@@ -12,7 +12,7 @@ public class MousePanel extends PanelSetting{
 	public MousePanel(int x, int y, int width, int height, Color color) {
 		super(x, y, width, height, color);
 		// TODO Auto-generated constructor stub
-   		this.add(new NomalLabel("Mouse       X: "+Constant.mouse.MouseGetX()+"     Y: "+Constant.mouse.MouseGetY(), 10, 10, 250, 20));
+   		this.add(new NomalLabel("Çö ÁÂÇ¥:       X: "+Constant.mouse.MouseGetX()+"     Y: "+Constant.mouse.MouseGetY(), 10, 10, 250, 20));
 	}
 
 }
