@@ -10,6 +10,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
 import Constants.Constant;
+import Data.ColorS;
+import Events.PlayEvent;
 import Labels.InputLabel;
 import Labels.NomalLabel;
 import Setting.ButtonSetting;
@@ -18,7 +20,7 @@ import Setting.PanelSetting;
 
 public class RightSettingPanel extends PanelSetting{
 	private static final long serialVersionUID = 1L;
-	private ButtonSetting save, Delete, set1, set2, set3;
+	private ButtonSetting save, delete, set1, set2, set3, up, down;
 	private Color ColorSet = new Color(255,255,255);
 	private DataSetting Data;
 	private Boolean see_Focus = false;
@@ -44,13 +46,13 @@ public class RightSettingPanel extends PanelSetting{
 			//오른쪽 페이지를 표시해준다. 
 			for(char i : data.getKind()) {
 			if(i == 'M') {
-				this.add(new NomalLabel("Position : ", 20, j, 150, 30));
+				this.add(new NomalLabel("시작 좌표 : ", 20, j, 150, 30));
 				this.add(new NomalLabel("X: "+Integer.toString(Data.getSmouseX())+" Y: "+Integer.toString(Data.getSmouseY()),180,j,130,30));
-				this.add(new NomalLabel("(Hold-On '1' key)",310,j,130,30));
+				this.add(new NomalLabel("('1' 키를 꾹 눌러주세요.)",180,j+20,180,30));
 			}else if(i == 'E') {
-				this.add(new NomalLabel("End Position : ", 20, j, 150, 30));
+				this.add(new NomalLabel("종료 좌표 : ", 20, j, 150, 30));
 				this.add(new NomalLabel("X: "+Integer.toString(Data.getEmouseX())+" Y: "+Integer.toString(Data.getEmouseY()),180,j,130,30));
-				this.add(new NomalLabel("(Hold-On '2' key)",310,j,130,30));
+				this.add(new NomalLabel("('2' 키를 꾹 눌러주세요.)",180,j+20,180,30));
 			}else if(i == 'N') {
 				set1 = new ButtonSetting("Count Set-up", 270, j+5, 150, 20);
 				set1.addActionListener(new myActionListener());
@@ -87,21 +89,36 @@ public class RightSettingPanel extends PanelSetting{
 				check.addActionListener(new myActionListener());
 				check.setActionCommand("check");
 				this.add(check);
+			}else if(i == 'c') {
+				this.add(new NomalLabel("Color Changed", 20, j, 150, 30));
+				this.add(new NomalLabel("( If Color Changed, Then Continue )",20,j+20,300,30));
+				JCheckBox check = new JCheckBox();
+				check.setSelected(Data.isChangedColor());
+				check.setBounds(180, j+5, 20, 20);
+				check.addActionListener(new myActionListener());
+				check.setActionCommand("changed");
+				this.add(check);
 			}
 			j += 60;
 		}
 		
 		save = new ButtonSetting("Save", 20, 405, 80, 30);
 		save.addActionListener(new myActionListener());
-		Delete = new ButtonSetting("Delete",375,405,80,30);
-		Delete.addActionListener(new myActionListener());
+		delete = new ButtonSetting("Delete",375,405,80,30);
+		delete.addActionListener(new myActionListener());
+		up = new ButtonSetting("Up",179,405,50,30);
+		up.addActionListener(new myActionListener());
+		down = new ButtonSetting("Down",233,405,50,30);
+		down.addActionListener(new myActionListener());
 		
 		this.add(save);
-		this.add(Delete);
+		this.add(delete);
+		this.add(up);
+		this.add(down);
+		
 		this.setFocusable(see_Focus);
 		this.repaint();
 		this.setVisible(see_Focus);
-
 
 	}
 
@@ -147,7 +164,34 @@ public class RightSettingPanel extends PanelSetting{
 				case "check":
 					if(Data.isHoldon()) Data.setHoldon(false);
 					else Data.setHoldon(true);
+					break;
+
+				case "changed":
+					if(Data.isChangedColor()) Data.setChangedColor(false);
+					else Data.setChangedColor(true);
+					break;
+					
+				case "Up":
+					if(Data.isSaved()) {
+						if(Constant.data.indexOf(Data)!=0) {
+							int temp = Constant.data.indexOf(Data);
+							Constant.data.removeElement(Data);
+							Constant.data.insertElementAt(Data, temp-1);
+						}
+					}
+					break;
+					
+				case "Down":
+					if(Data.isSaved()) {
+						if(Constant.data.indexOf(Data) != Constant.data.size()-1) {
+							int temp = Constant.data.indexOf(Data);
+							Constant.data.removeElement(Data);
+							Constant.data.insertElementAt(Data, temp+1);
+						}
+					}
+					break;
 				}
+				
 				}catch(Exception ex) {
 
 			}
@@ -170,6 +214,9 @@ public class RightSettingPanel extends PanelSetting{
 				if(Data.getName().equals("Color Start"))
 					Data.setRGB(Constant.mouse.getColor());
 				view(Data);
+			}
+			if(e.getKeyCode() == KeyEvent.VK_F5) {
+				JOptionPane.showMessageDialog(null, "설정창을 닫고 눌러주세요.");
 			}
 		}
 

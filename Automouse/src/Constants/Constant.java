@@ -15,4 +15,7 @@ public class Constant {
 	
 	public static MouseEvent mouse = new MouseEvent(); // 마우스 이벤트 
 	public static Vector<DataSetting> data = new Vector<DataSetting>(); //루틴값들을 저장해주고 문서화해주는 Vector
+
+	public static enum Language {English, Korean};
+	
 }

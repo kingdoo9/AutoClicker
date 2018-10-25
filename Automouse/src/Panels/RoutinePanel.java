@@ -12,7 +12,7 @@ import Setting.PanelSetting;
 public class RoutinePanel extends PanelSetting{
 	private static final long serialVersionUID = 1L;
 	private RightSettingPanel RS;
-	private int BoundY;
+	private int BoundY=1;
 	private int DataNum;
 	private int DataSize;
 	private int Page=1;
@@ -27,15 +27,18 @@ public class RoutinePanel extends PanelSetting{
 	
 	public void View() {
 		this.removeAll();
-		
-		DataNum = 0;
 		BoundY = 1;
+		DataNum = (Page-1)*9;
+
 
 		
 		
-		prev = new ButtonSetting("Prev",20,319,80,20);
+		prev = new ButtonSetting("이전",20,319,80,20);
+		prev.setActionCommand("Prev");
 		prev.addActionListener(new myActionListener());
-		next = new ButtonSetting("Next",149,319,80,20);
+		
+		next = new ButtonSetting("다음",149,319,80,20);
+		next.setActionCommand("Next");
 		next.addActionListener(new myActionListener());
 		
 		pages = new NomalLabel(Integer.toString(Page), 119, 319, 20, 20);
@@ -43,7 +46,7 @@ public class RoutinePanel extends PanelSetting{
 		
 		
 		
-		
+
 		for(int i=(Page-1)*9; i<DataSize && i<Page*9; i++) {
 			ButtonSetting button = new ButtonSetting(Constant.data.elementAt(i).getName(), 1, BoundY, 248, 33);
 			button.setActionCommand(Integer.toString(DataNum));
@@ -77,7 +80,6 @@ public class RoutinePanel extends PanelSetting{
 				default :
 					RS.onSee_Focus();
 					RS.view(Constant.data.elementAt(Integer.parseInt(e.getActionCommand())));
-					View();
 					break;
 				
 				

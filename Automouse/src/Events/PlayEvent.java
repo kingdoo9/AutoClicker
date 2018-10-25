@@ -19,20 +19,25 @@ public class PlayEvent extends Thread implements Runnable{
 	public PlayEvent(int repeat) throws AWTException {
 		bot = new Robot(); //마우스의 실제 클릭을 눌러줄 친구.
 		repeatN = repeat; // 사용자가 지정한 횟수
+		StackColor.removeAllElements();
+		StackColor.add(new Color(255,255,255));
 	}
 	
 	public int getRuntimes() {return Runtimes;}
 	
 	@Override
 	public void run() {
+		//사용자가 지정한 횟수만큼 반복 재생
 		for(Runtimes=1; Runtimes<=repeatN; Runtimes++) {
 			try {
 				for(int j=0; j<Constant.data.size(); j++) {
+					//데이터에 들어있는 것들을 하나씩 꺼냄
 					DataSetting data = Constant.data.elementAt(j);
 					switch(data.getName()) {
 					
+					//데이터 이름이 Click이면
 					case "Click":
-						if(data.getRGB().equals(new Color(255,255,255)) || StackColor.peek().equals(data.getRGB())) {
+						if(StackColor.peek().equals(data.getRGB())) {
 							for(int i=0; i<data.getNumber();i++) {	
 								bot.mouseMove(data.getSmouseX(), data.getSmouseY());
 								bot.mousePress(InputEvent.BUTTON1_MASK);
@@ -40,10 +45,11 @@ public class PlayEvent extends Thread implements Runnable{
 								Thread.sleep(1000/data.getRepeat());
 							}
 						}
-
 						break;
+						
+					//데이터 이름이 Drag이면
 					case "Drag":
-						if(data.getRGB().equals(new Color(255,255,255)) || StackColor.peek().equals(data.getRGB())) {
+						if(StackColor.peek().equals(data.getRGB())) {
 							for(int i=0; i<data.getNumber();i++) {	
 								bot.mouseMove(data.getSmouseX(), data.getSmouseY());
 								bot.mousePress(InputEvent.BUTTON1_MASK);
@@ -52,17 +58,21 @@ public class PlayEvent extends Thread implements Runnable{
 								Thread.sleep(1000/data.getRepeat());
 							}
 						}
-
 						break;
+						
+					//데이터 이름이 Delay이면
 					case "Delay":
-						if(data.getRGB().equals(new Color(255,255,255)) || StackColor.peek().equals(data.getRGB())) {
+						if(StackColor.peek().equals(data.getRGB())) {
 							Thread.sleep(data.getDelay());
 						}
 						break;
+						
+					//데이터 이름이 Color Start이면
 					case "Color Start":
 						bot.mouseMove(data.getSmouseX(), data.getSmouseY());
 						while(data.isHoldon()) {
 							Thread.sleep(100);
+							bot.mouseMove(data.getSmouseX(), data.getSmouseY());
 							if(data.getRGB().equals(bot.getPixelColor(data.getSmouseX(), data.getSmouseY())))
 								break;
 						}
@@ -70,16 +80,32 @@ public class PlayEvent extends Thread implements Runnable{
 							ColorCount++;
 							if(ColorCount == data.getNumber()) {
 								StackColor.add(data.getRGB());
+								System.out.println("comming1");
 								ColorCount = 0;
 							}
 						}
+						if(data.isChangedColor()) {
+							while(true) {
+								Thread.sleep(100);
+								bot.mouseMove(data.getSmouseX(), data.getSmouseY());
+								System.out.println("comming2");
+								if(!data.getRGB().equals(bot.getPixelColor(data.getSmouseX(), data.getSmouseY())))break;
+							}
+						}
 						break;
+					
+					//데이터 이름이 Color End이면
 					case "Color End":
-						StackColor.pop();
+						if(StackColor.size()>1) {
+							StackColor.pop();
+						}
 						break;
 					}
 				}
-			}catch(Exception e) {}
+				Thread.sleep(100);
+			}catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 }

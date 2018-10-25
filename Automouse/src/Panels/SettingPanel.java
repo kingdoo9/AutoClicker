@@ -22,19 +22,24 @@ public class SettingPanel extends PanelSetting{
 		// TODO Auto-generated constructor stub
 		Rightsetting = rightsetting;
 		
-		Click = new ButtonSetting("Click Setting", 10, 10, 200, 30);
+		Click = new ButtonSetting("클릭 설정", 10, 10, 200, 30);
+		Click.setActionCommand("Click Setting");
 		Click.addActionListener(new myActionListener());
 		
-		Drag = new ButtonSetting("Drag Setting", 10, 50, 200, 30);
+		Drag = new ButtonSetting("드래그 설정", 10, 50, 200, 30);
+		Drag.setActionCommand("Drag Setting");
 		Drag.addActionListener(new myActionListener());
 		
-		Delay = new ButtonSetting("Delay Setting", 10, 90, 200, 30);
+		Delay = new ButtonSetting("대기 설정", 10, 90, 200, 30);
+		Delay.setActionCommand("Delay Setting");
 		Delay.addActionListener(new myActionListener());
 
-		ColorS = new ButtonSetting("Color Start", 10, 180, 200, 30);
+		ColorS = new ButtonSetting("색 조건 설정", 10, 180, 200, 30);
+		ColorS.setActionCommand("Color Start");
 		ColorS.addActionListener(new myActionListener());
 		
-		ColorE = new ButtonSetting("Color End", 10, 220, 200, 30);
+		ColorE = new ButtonSetting("색 조건 종료", 10, 220, 200, 30);
+		ColorE.setActionCommand("Color End");
 		ColorE.addActionListener(new myActionListener());
 		
 		this.add(Click);

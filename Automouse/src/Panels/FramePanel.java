@@ -8,13 +8,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Constants.Constant;
+import Data.FileData;
+import Data.RoutineData;
 import Events.PlayEvent;
 import Setting.ButtonSetting;
+import Setting.DataSetting;
 import Setting.PanelSetting;
 
 public class FramePanel extends JFrame{
@@ -31,6 +35,7 @@ public class FramePanel extends JFrame{
 	private PanelSetting right;
 	private PanelSetting left;
 	private PlayEvent play;
+	private RoutineData RD;
 
 	public FramePanel() throws InterruptedException, AWTException {
 		super("AutoSetting");
@@ -42,6 +47,7 @@ public class FramePanel extends JFrame{
 		//컨테이너 (모든패널 저장공간)
 		content = this.getContentPane();
 		content.addKeyListener(new myActionListener());
+		
 		
 		//오른쪽 안쪽 패널
 		rightsetting = new RightSettingPanel(10, 10, 475, 445, Color.white);
@@ -55,9 +61,11 @@ public class FramePanel extends JFrame{
 		Setting = new SettingPanel(270,60,220,350,Color.white,rightsetting);
 		
 		//저장, 불러오기 버튼
-		save = new ButtonSetting("Save", 10, 420, 80, 30);
+		save = new ButtonSetting("저장", 10, 420, 80, 30);
+		save.setActionCommand("Save");
 		save.addActionListener(new myActionListener());
-		load = new ButtonSetting("Load", 100, 420, 80, 30);
+		load = new ButtonSetting("불러오기", 100, 420, 80, 30);
+		load.setActionCommand("Load");
 		load.addActionListener(new myActionListener());
 		
 		//오른쪽 패널
@@ -113,14 +121,23 @@ public class FramePanel extends JFrame{
 	class myActionListener implements ActionListener, KeyListener{
 
 		//버튼 설정
+		@SuppressWarnings("unchecked")
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			if(e.getActionCommand() == "Save") {
-				System.out.println("saved");
-			}else {
-				System.out.println("loaded");
-			}
+			try {
+				if(e.getActionCommand() == "Save") {
+					String D = JOptionPane.showInputDialog(null,"저장시 파일명을 입력해주세요. \n \\  /  :  \"  *  ?  .  <  >  |  \n 입력시 파일이 생성되지 않을 수 있습니다.)","input",JOptionPane.QUESTION_MESSAGE);
+					new FileData();
+					RD = new RoutineData();
+					RD.setObj(Constant.data);
+					FileData.save(D, RD.getObj());
+				}else {
+					String D = JOptionPane.showInputDialog(null,"불러올 파일명을 입력해주세요.","input",JOptionPane.QUESTION_MESSAGE);
+					new FileData();
+					Constant.data = (Vector<DataSetting>) FileData.read(D);
+				}
+			}catch(Exception E) {}
 		}
 
 		//키 설정
@@ -132,7 +149,7 @@ public class FramePanel extends JFrame{
 
 				if(e.getKeyCode() == KeyEvent.VK_F5) {
 					//반복횟수 설정 대화창
-					String D = JOptionPane.showInputDialog(null,"How many times will you repeat this?","input",JOptionPane.QUESTION_MESSAGE);
+					String D = JOptionPane.showInputDialog(null,"몇번 반복하시겠습니까?","input",JOptionPane.QUESTION_MESSAGE);
 					play = new PlayEvent(Integer.parseInt(D));
 					play.start();
 				}
@@ -140,7 +157,7 @@ public class FramePanel extends JFrame{
 					play.stop();
 				}
 			} catch (Exception e1) { // 숫자가 아닌 수가 입력되었을때 의 error 메시지
-				JOptionPane.showMessageDialog(null, "Number Format mismatch");
+				JOptionPane.showMessageDialog(null, "입력 형식이 올바르지 않습니다.");
 			}
 		}
 
