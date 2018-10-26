@@ -11,7 +11,7 @@ public class Language {
 			 								"Start Position :", "End Position :", "Really Create new File?",
 			 								"Which language would you choose?",	"Hold-On Setting", "Color Changed",
 			 								"( Hold-On Routines, When the Color comes out. )","( If Color Changed, Then Continue. )",
-			 								"Input Number",
+			 								"Input Number", "Go there",
 			 								
 
 			 								
@@ -24,7 +24,7 @@ public class Language {
 			 								 "시작 좌표 :","종료 좌표 :", "정말로 새로만드시겠습니까?",
 			 								 "어떤 언어를 선택하시겠습니까?", "멈춤 설정" , "색 변경 설정",
 			 								 "( 설정한 색이 나올때까지 잠시 대기합니다. )", "( 색이 변경되면 그때 다시 진행합니다. )",
-				 							 "숫자를 입력해 주세요."
+				 							 "숫자를 입력해 주세요.", "좌표로 가기"
 			 								 
 			 								 };
 	
@@ -37,7 +37,7 @@ public class Language {
 		 					SPosition, EPosition , MsgNFile,
 		 					MsgLanguage, HSetting, CSetting,
 		 					MsgHSetting, MsgCSetting,
-		 					InputNumber
+		 					InputNumber, gothere
 	 						};
 	 
 	 public static int LSelect = 0;

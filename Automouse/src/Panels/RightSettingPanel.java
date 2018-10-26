@@ -1,6 +1,7 @@
 package Panels;
 
 import java.awt.Color;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -19,7 +20,7 @@ import Setting.PanelSetting;
 
 public class RightSettingPanel extends PanelSetting{
 	private static final long serialVersionUID = 1L;
-	private ButtonSetting save, delete, set1, set2, set3, up, down; //버튼들 설정
+	private ButtonSetting save, delete, set1, set2, set3, up, down, GoS, GoE; //버튼들 설정
 	private Color ColorSet = new Color(255,255,255); //Color조건부가 시작되면 그 하단에 있는 애들도 같은 색으로 저장하는 변수
 	private DataSetting Data;
 	private boolean see_Focus = false; //화면 보여짐, 화면 키입력을 되도록 하는 boolean변수
@@ -49,10 +50,16 @@ public class RightSettingPanel extends PanelSetting{
 				this.add(new NomalLabel(Language.Language[Language.Lan.SPosition.ordinal()+Language.LSelect], 20, j, 150, 30));
 				this.add(new NomalLabel("X: "+Integer.toString(Data.getSmouseX())+" Y: "+Integer.toString(Data.getSmouseY()),180,j,130,30));
 				this.add(new NomalLabel(Language.Language[Language.Lan.press1.ordinal()+Language.LSelect],180,j+20,180,30));
+				GoS = new ButtonSetting(Language.Language[Language.Lan.gothere.ordinal()+Language.LSelect],"GoS", 300, j+5, 100, 20);
+				GoS.addActionListener(new myActionListener());
+				this.add(GoS);
 			}else if(i == 'E') { //마우스 종료 좌표
 				this.add(new NomalLabel(Language.Language[Language.Lan.EPosition.ordinal()+Language.LSelect], 20, j, 150, 30));
 				this.add(new NomalLabel("X: "+Integer.toString(Data.getEmouseX())+" Y: "+Integer.toString(Data.getEmouseY()),180,j,130,30));
 				this.add(new NomalLabel(Language.Language[Language.Lan.press2.ordinal()+Language.LSelect],180,j+20,180,30));
+				GoE = new ButtonSetting(Language.Language[Language.Lan.gothere.ordinal()+Language.LSelect],"GoE", 300, j+5, 100, 20);
+				GoE.addActionListener(new myActionListener());
+				this.add(GoE);
 			}else if(i == 'N') { //횟수
 				set1 = new ButtonSetting(Language.Language[Language.Lan.setup.ordinal()+Language.LSelect],"Count Set-up", 270, j+5, 80, 20);
 				set1.addActionListener(new myActionListener());
@@ -193,6 +200,13 @@ public class RightSettingPanel extends PanelSetting{
 							Constant.data.insertElementAt(Data, temp+1);
 						}
 					}
+					break;
+				case "GoS": // 좌표지점으로 마우스 이동시키기.
+					new Robot().mouseMove(Data.getSmouseX(), Data.getSmouseY());
+					break;
+				
+				case "GoE": // 좌표지점으로 마우스 이동시키기.
+					new Robot().mouseMove(Data.getEmouseX(), Data.getEmouseY());
 					break;
 				}
 				

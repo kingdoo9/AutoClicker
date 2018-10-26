@@ -3,7 +3,6 @@ package Panels;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
@@ -12,7 +11,6 @@ import Constants.Constant;
 import Constants.Language;
 import Data.FileData;
 import Data.RoutineData;
-import Panels.FramePanel.myActionListener;
 import Setting.ButtonSetting;
 import Setting.DataSetting;
 import Setting.PanelSetting;

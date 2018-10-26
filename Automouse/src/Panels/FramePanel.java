@@ -4,22 +4,14 @@ import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Constants.Constant;
-import Constants.Language;
-import Data.FileData;
-import Data.RoutineData;
 import Events.PlayEvent;
-import Setting.ButtonSetting;
-import Setting.DataSetting;
 import Setting.PanelSetting;
 
 public class FramePanel extends JFrame{ //JFrame 함수. 프레임의 틀을 짜며 매 시간마다 화면을 갱신하는 역할을 한다.
