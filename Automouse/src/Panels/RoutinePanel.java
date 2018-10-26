@@ -12,48 +12,35 @@ import Setting.PanelSetting;
 public class RoutinePanel extends PanelSetting{
 	private static final long serialVersionUID = 1L;
 	private RightSettingPanel RS;
-	private int BoundY=1;
-	private int DataNum;
-	private int DataSize;
-	private int Page=1;
+	private int BoundY=1, DataNum, DataSize, Page=1;
 	private NomalLabel pages;
 	private ButtonSetting prev, next;
-
 
 	public RoutinePanel(int x, int y, int width, int height, Color color, RightSettingPanel rightsetting) {
 		super(x, y, width, height, color);
 		this.RS = rightsetting;
 	}
 	
-	public void View() {
+	public void View() { //FramePanel로 인해 항상 화면 갱신
 		this.removeAll();
-		BoundY = 1;
-		DataNum = (Page-1)*9;
-
-
+		BoundY = 1; //각 버튼끼리 거리를 조절해 생성
+		DataNum = (Page-1)*9; //데이타에 숫자를 정함. 버튼을 눌렀을때 그 데이터를 설정창으로 보내기 위함.
 		
+		prev = new ButtonSetting("이전","Prev",20,319,80,20); //이전 페이지 버튼
+		prev.addActionListener(new myActionListener()); //이 설정은 페이지 하단에 프로그래밍함.
 		
-		prev = new ButtonSetting("이전",20,319,80,20);
-		prev.setActionCommand("Prev");
-		prev.addActionListener(new myActionListener());
-		
-		next = new ButtonSetting("다음",149,319,80,20);
-		next.setActionCommand("Next");
+		next = new ButtonSetting("다음","Next",149,319,80,20); //다음 페이지 버튼
 		next.addActionListener(new myActionListener());
 		
-		pages = new NomalLabel(Integer.toString(Page), 119, 319, 20, 20);
-		DataSize = Constant.data.size();
-		
-		
-		
+		pages = new NomalLabel(Integer.toString(Page), 119, 319, 20, 20); //페이지 숫자표시 label
+		DataSize = Constant.data.size(); //현재 Routine 크기를 저장
 
-		for(int i=(Page-1)*9; i<DataSize && i<Page*9; i++) {
-			ButtonSetting button = new ButtonSetting(Constant.data.elementAt(i).getName(), 1, BoundY, 248, 33);
-			button.setActionCommand(Integer.toString(DataNum));
+		for(int i=(Page-1)*9; i<DataSize && i<Page*9; i++) { //(페이지-1)*9 부터 데이터를 불러와서 9개까지 화면에 표시
+			ButtonSetting button = new ButtonSetting(Constant.data.elementAt(i).getName(),Integer.toString(DataNum), 1, BoundY, 248, 33);
 			button.addActionListener(new myActionListener());
 			this.add(button);
 			DataNum++;
-			BoundY += 34;
+			BoundY += 34; //각 버튼끼리 떨어져있는 거리
 		}
 		
 		this.add(pages);
@@ -62,6 +49,7 @@ public class RoutinePanel extends PanelSetting{
 		this.repaint();
 	}
 	
+	//버튼 설정
 	class myActionListener implements ActionListener{
 
 		@Override
@@ -70,16 +58,17 @@ public class RoutinePanel extends PanelSetting{
 			try {
 				switch(e.getActionCommand()) {
 				
-				case "Prev" :
+				case "Prev" : //이전페이지
 					if(Page != 1) { Page--; View();}
 					break;
-				case "Next" :
+				case "Next" : //다음페이지
 					if(Page < (DataSize/9)+1) { Page++; View();}
 					break;
 					
 				default :
 					RS.onSee_Focus();
-					RS.view(Constant.data.elementAt(Integer.parseInt(e.getActionCommand())));
+					RS.setData(Constant.data.elementAt(Integer.parseInt(e.getActionCommand())));
+					RS.view();
 					break;
 				
 				

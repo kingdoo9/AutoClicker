@@ -10,8 +10,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
 import Constants.Constant;
-import Data.ColorS;
-import Events.PlayEvent;
 import Labels.InputLabel;
 import Labels.NomalLabel;
 import Setting.ButtonSetting;
@@ -20,68 +18,69 @@ import Setting.PanelSetting;
 
 public class RightSettingPanel extends PanelSetting{
 	private static final long serialVersionUID = 1L;
-	private ButtonSetting save, delete, set1, set2, set3, up, down;
-	private Color ColorSet = new Color(255,255,255);
+	private ButtonSetting save, delete, set1, set2, set3, up, down; //버튼들 설정
+	private Color ColorSet = new Color(255,255,255); //Color조건부가 시작되면 그 하단에 있는 애들도 같은 색으로 저장하는 변수
 	private DataSetting Data;
-	private Boolean see_Focus = false;
+	private boolean see_Focus = false; //화면 보여짐, 화면 키입력을 되도록 하는 boolean변수
 	
 	public RightSettingPanel(int x, int y, int width, int height, Color color) {
-		// TODO Auto-generated constructor stub
-		super(x, y, width, height, color);
+		super(x, y, width, height, color); //대부분 설정은 상위class인 PanelSetting에 있음.
 		this.setVisible(see_Focus);
-		this.addKeyListener(new myActionListener());
+		this.setFocusable(see_Focus);
+		this.addKeyListener(new myActionListener()); //키 설정은 하단에 프로그래밍함.
 	}
-	public Boolean getSee_Focus() {return see_Focus;}
-	public void onSee_Focus() {this.see_Focus = true;}
-	public void Colorinit() { this.ColorSet = new Color(255,255,255);}
 	
-	public void view(DataSetting data) {
-		// TODO Auto-generated method stub
-		if(!ColorSet.equals(new Color(255,255,255))) Data.setRGB(ColorSet);
-		this.Data = data;
-
-			this.removeAll();		
-			int j = 20;
+	public Boolean getSee_Focus() {return see_Focus;} //이 페이지가 활성화 되었는지를 return. (FramePanel에서 사용함.)
+	public void onSee_Focus() {this.see_Focus = true;} //이 페이지를 보여주고 키입력이 되도록 만듬.(SettingPanel class에서 사용함.) 
+	public void Colorinit() { this.ColorSet = new Color(255,255,255);} //Color End버튼을 눌렀을때  Color세팅을 초기화함(SettingPanel class에서 사용함.)
+	public void setData(DataSetting data) {
+		Data = data;
+	}
+	
+	
+	public void view() {	//오른쪽 페이지를 표시. 
+		this.removeAll();
+		if(!ColorSet.equals(new Color(255,255,255))&&!Data.isSaved()&&Data.getName()!="Color Start") Data.setRGB(ColorSet); //Color Start가 눌러져있었다면 색 설정.
+		int j = 20; //일정부분씩 떨어뜨려 설정들을 표시해주게 만든다.
 			
-			//오른쪽 페이지를 표시해준다. 
-			for(char i : data.getKind()) {
-			if(i == 'M') {
+		for(char i : Data.getKind()) { //각 데이터마다 종류를 가지고있는데 그 종류대로 다음을 표시함. 'Data 패키지' 의 각 설정을 참고.
+			if(i == 'M') { //마우스 초기 좌표
 				this.add(new NomalLabel("시작 좌표 : ", 20, j, 150, 30));
 				this.add(new NomalLabel("X: "+Integer.toString(Data.getSmouseX())+" Y: "+Integer.toString(Data.getSmouseY()),180,j,130,30));
 				this.add(new NomalLabel("('1' 키를 꾹 눌러주세요.)",180,j+20,180,30));
-			}else if(i == 'E') {
+			}else if(i == 'E') { //마우스 종료 좌표
 				this.add(new NomalLabel("종료 좌표 : ", 20, j, 150, 30));
 				this.add(new NomalLabel("X: "+Integer.toString(Data.getEmouseX())+" Y: "+Integer.toString(Data.getEmouseY()),180,j,130,30));
 				this.add(new NomalLabel("('2' 키를 꾹 눌러주세요.)",180,j+20,180,30));
-			}else if(i == 'N') {
-				set1 = new ButtonSetting("Count Set-up", 270, j+5, 150, 20);
+			}else if(i == 'N') { //횟수
+				set1 = new ButtonSetting("Count Set-up","Count Set-up", 270, j+5, 150, 20);
 				set1.addActionListener(new myActionListener());
 				this.add(new NomalLabel(Data.getName() +" Count : ", 20, j, 150, 30));
 				this.add(new InputLabel(Integer.toString(Data.getNumber()), 180, j, 80, 30));
 				this.add(set1);
-			}else if(i == 'R') {
-				set2 = new ButtonSetting("repeat Set-up", 270, j+5, 150, 20);
+			}else if(i == 'R') { //초당 반복횟수
+				set2 = new ButtonSetting("repeat Set-up","repeat Set-up", 270, j+5, 150, 20);
 				set2.addActionListener(new myActionListener());
 				this.add(new NomalLabel(Data.getName() +" repeat(1s) : ", 20, j, 150, 30));
 				this.add(new InputLabel(Integer.toString(Data.getRepeat()), 180, j, 80, 30));
 				this.add(set2);
-			}else if(i == 'D') {
-				set3 = new ButtonSetting("Delay Set-up", 270, j+5, 150, 20);
+			}else if(i == 'D') { //대기 시간
+				set3 = new ButtonSetting("Delay Set-up","Delay Set-up", 270, j+5, 150, 20);
 				set3.addActionListener(new myActionListener());
 				this.add(new NomalLabel("Delay time(ms) : ", 20, j, 150, 30));
 				this.add(new InputLabel(Integer.toString(Data.getDelay()), 180, j, 80, 30));
 				this.add(set3);
-			}else if(i == 'C') {
+			}else if(i == 'C') { //색 조건부 설정
 				this.add(new NomalLabel("Color : ", 20, j, 150, 30));
 				this.add(new NomalLabel(
 						"R: "+Integer.toString(Data.getRGB().getRed())+" "+
 						"G: "+Integer.toString(Data.getRGB().getGreen())+" "+
 						"B: "+Integer.toString(Data.getRGB().getBlue()),180,j,180,30));
-				ButtonSetting ViewColor = new ButtonSetting("", 360, j, 90, 30);
+				ButtonSetting ViewColor = new ButtonSetting("","", 360, j, 90, 30);
 				ViewColor.setBackground(Data.getRGB());
 				this.add(ViewColor);
 				this.add(new NomalLabel("(Hold-On '3' key)",180,j+20,130,30));
-			}else if(i == 'H') {
+			}else if(i == 'H') { //색이 나올때까지 대기할 것인가.
 				this.add(new NomalLabel("Hold-On Setting", 20, j, 150, 30));
 				JCheckBox check = new JCheckBox();
 				check.setSelected(Data.isHoldon());
@@ -89,7 +88,7 @@ public class RightSettingPanel extends PanelSetting{
 				check.addActionListener(new myActionListener());
 				check.setActionCommand("check");
 				this.add(check);
-			}else if(i == 'c') {
+			}else if(i == 'c') { //색이 바뀔때까지 대기할 것인가.
 				this.add(new NomalLabel("Color Changed", 20, j, 150, 30));
 				this.add(new NomalLabel("( If Color Changed, Then Continue )",20,j+20,300,30));
 				JCheckBox check = new JCheckBox();
@@ -99,16 +98,16 @@ public class RightSettingPanel extends PanelSetting{
 				check.setActionCommand("changed");
 				this.add(check);
 			}
-			j += 60;
+			j += 60; //각 조건들 사이에는 Y축으로 60의 간격이 있음.
 		}
 		
-		save = new ButtonSetting("Save", 20, 405, 80, 30);
+		save = new ButtonSetting("Save","Save", 20, 405, 80, 30);
 		save.addActionListener(new myActionListener());
-		delete = new ButtonSetting("Delete",375,405,80,30);
+		delete = new ButtonSetting("Delete","Delete",375,405,80,30);
 		delete.addActionListener(new myActionListener());
-		up = new ButtonSetting("Up",179,405,50,30);
+		up = new ButtonSetting("Up","Up",179,405,50,30);
 		up.addActionListener(new myActionListener());
-		down = new ButtonSetting("Down",233,405,50,30);
+		down = new ButtonSetting("Down","Down",233,405,50,30);
 		down.addActionListener(new myActionListener());
 		
 		this.add(save);
@@ -116,12 +115,13 @@ public class RightSettingPanel extends PanelSetting{
 		this.add(up);
 		this.add(down);
 		
-		this.setFocusable(see_Focus);
+		this.revalidate();
 		this.repaint();
 		this.setVisible(see_Focus);
-
+		System.out.println(Data.getRGB());
 	}
 
+	//버튼 및 키 설정.
 	class myActionListener implements ActionListener, KeyListener{
 
 		@Override
@@ -130,48 +130,48 @@ public class RightSettingPanel extends PanelSetting{
 			try {
 				switch(e.getActionCommand()){
 				
-				case "Count Set-up":
+				case "Count Set-up": //횟수를 입력받아 저장
 					String N = JOptionPane.showInputDialog(null,"Input Number","input",JOptionPane.QUESTION_MESSAGE);
 					Data.setNumber(Integer.parseInt(N));
-		        	view(Data); //오른쪽 페이지 갱신
+		        	view(); //오른쪽 페이지 갱신
 					break;
-				case "repeat Set-up":
+				case "repeat Set-up": //초당 반복횟수를 입력받아 저장
 					String R = JOptionPane.showInputDialog(null,"Input Number (N<100)","input",JOptionPane.QUESTION_MESSAGE);
 					if(Integer.parseInt(R)>100 || Integer.parseInt(R)<=0) break;
 					Data.setRepeat(Integer.parseInt(R));
-		        	view(Data);
+		        	view();
 					break;
-				case "Delay Set-up":
+				case "Delay Set-up": //대기 시간을 입력받아 저장
 					String D = JOptionPane.showInputDialog(null,"Input Number (1000 = 1s)","input",JOptionPane.QUESTION_MESSAGE);
 					Data.setDelay(Integer.parseInt(D));
-		        	view(Data);
+		        	view();
 					break;
-				case "Save":
+				case "Save": //Data에 값을 저장함. 만약 저장되어있는 값이면 무시
 					see_Focus = false;
-					if(!Data.isSaved()) {
+					if(!Data.isSaved()) { // 저장되어있는 값이 아니라면
 						Constant.data.add(Data);
 						if(Data.getName().equals("Color Start"))
 							ColorSet = Data.getRGB();
 						Data.setSaved(true);
 					}
-					view(Data);
+					view();
 					break;
-				case "Delete":
+				case "Delete": //데이터에 있는 값을 삭제시키고 오른쪽 페이지를 비활성화.
 					see_Focus = false;
 					if(Data.isSaved()) Constant.data.removeElement(Data);
-					view(Data);
+					view();
 					break;
-				case "check":
+				case "check": //체크박스를 체크시키거나 언체크시킴.
 					if(Data.isHoldon()) Data.setHoldon(false);
 					else Data.setHoldon(true);
 					break;
 
-				case "changed":
+				case "changed": //체크박스를 체크시키거나 언체크시킴.
 					if(Data.isChangedColor()) Data.setChangedColor(false);
 					else Data.setChangedColor(true);
 					break;
 					
-				case "Up":
+				case "Up": // Data를 Routine에서 한칸 위로 올림.
 					if(Data.isSaved()) {
 						if(Constant.data.indexOf(Data)!=0) {
 							int temp = Constant.data.indexOf(Data);
@@ -181,7 +181,7 @@ public class RightSettingPanel extends PanelSetting{
 					}
 					break;
 					
-				case "Down":
+				case "Down": // Data를 Routine에서 한칸 아래로 내림.
 					if(Data.isSaved()) {
 						if(Constant.data.indexOf(Data) != Constant.data.size()-1) {
 							int temp = Constant.data.indexOf(Data);
@@ -200,37 +200,39 @@ public class RightSettingPanel extends PanelSetting{
 		@Override
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
-			if(e.getKeyCode() == KeyEvent.VK_1) {
+			if(e.getKeyCode() == KeyEvent.VK_1) { //1번키를 눌렀을때
 				Data.setSmouseX(Constant.mouse.MouseGetX());
 				Data.setSmouseY(Constant.mouse.MouseGetY());
-				view(Data);
+				view();
 			}
-			if(e.getKeyCode() == KeyEvent.VK_2) {
+			if(e.getKeyCode() == KeyEvent.VK_2) { //2번키를 눌렀을때
 				Data.setEmouseX(Constant.mouse.MouseGetX());
 				Data.setEmouseY(Constant.mouse.MouseGetY());
-				view(Data);
+				view();
 			}
-			if(e.getKeyCode() == KeyEvent.VK_3) {
-				if(Data.getName().equals("Color Start"))
+			if(e.getKeyCode() == KeyEvent.VK_3) { //3번키를 눌렀을때
+				if(Data.getName().equals("Color Start")) {
 					Data.setRGB(Constant.mouse.getColor());
-				view(Data);
+					if(Data.isSaved()) ColorSet = Data.getRGB();
+					
+					if(Data.isSaved() && Constant.data.indexOf(Data) != Constant.data.size()-1) {
+						for(int i=Constant.data.indexOf(Data)+1;; i++) {
+							if(Constant.data.elementAt(i).getName().equals("Color End")) {ColorSet = new Color(255,255,255); break;}
+							Constant.data.elementAt(i).setRGB(Data.getRGB());
+							if(i == Constant.data.size()-1) break;
+						}
+					}
+				view();
+				}
 			}
-			if(e.getKeyCode() == KeyEvent.VK_F5) {
+			if(e.getKeyCode() == KeyEvent.VK_F5) { //'F5'번키를 눌렀을때
 				JOptionPane.showMessageDialog(null, "설정창을 닫고 눌러주세요.");
 			}
 		}
-
 		@Override
-		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
+		public void keyReleased(KeyEvent e) {}
 		@Override
-		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void keyTyped(KeyEvent e) {}
 
 	}
 }

@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
 
 public class FileData {
 	
-	public static void save(String fileName, Object object) throws IOException {
+	public static void save(String fileName, Object object) throws IOException { //파일 저장
 		FileOutputStream FileOutputStream = new FileOutputStream(fileName);
 		BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(FileOutputStream);
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(bufferedOutputStream);
@@ -18,7 +18,7 @@ public class FileData {
 		objectOutputStream.close();			
 	}
 	
-	public static Object read(String fileName) throws IOException, ClassNotFoundException {
+	public static Object read(String fileName) throws IOException, ClassNotFoundException { //파일 불러오기
 		FileInputStream fileInputStream = new FileInputStream(fileName);
 		BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
 		ObjectInputStream objectInputStream = new ObjectInputStream(bufferedInputStream);
