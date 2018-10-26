@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Constants.Constant;
+import Constants.Language;
 import Data.FileData;
 import Data.RoutineData;
 import Events.PlayEvent;
@@ -30,11 +31,9 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 	private RoutinePanel Routine;
 	private GuidePanel Guide;
 	private SettingPanel Setting;
-	private ButtonSetting save, load, New;
 	private PanelSetting right;
-	private PanelSetting left;
+	private LeftPanel left;
 	private PlayEvent play;
-	private RoutineData RD;
 
 	public FramePanel() throws InterruptedException, AWTException {
 		super("AutoSetting"); // ÇÁ·¹ÀÓÀÇ Á¦¸ñÇ¥½ÃÁÙÀÇ Á¦¸ñÀ» °áÁ¤.
@@ -57,24 +56,10 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 		//¿À¸¥ÂÊ ÆÐ³Î
 		right = new MainPanel(500,0,495,465,new Color(213,242,211));			
 		//¿ÞÂÊ ÆÐ³Î
-		left = new MainPanel(0,0,500,465,new Color(213,242,211));		
+		left = new LeftPanel(0,0,500,465,new Color(213,242,211));		
 		//¸¶¿ì½º ÁÂÇ¥ ÆÐ³Î
 		Mouse = new MousePanel(220,10,270,40,Color.white);		
-		//ÀúÀå, ºÒ·¯¿À±â ¹öÆ°
-		save = new ButtonSetting("ÀúÀå","Save", 10, 420, 80, 30); // ÀúÀå ¹öÆ°À» x=10,y=420 ¶³¾îÁø°÷¿¡ Å©±â 80 X 30 À¸·Î ¹öÆ° »ý¼º
-		save.addActionListener(new myActionListener()); //¹öÆ° Å¬¸¯½Ã ¼³Á¤Àº ÇÏ´Ü¿¡ ÇÁ·Î±×·¡¹ÖÇÔ.
-		load = new ButtonSetting("ºÒ·¯¿À±â","Load", 100, 420, 80, 30); // ºÒ·¯¿À±â ¹öÆ°À» x=100,y=420 ¶³¾îÁø°÷¿¡ Å©±â 80 X 30 À¸·Î ¹öÆ° »ý¼º
-		load.addActionListener(new myActionListener()); //¹öÆ° Å¬¸¯½Ã ¼³Á¤Àº ÇÏ´Ü¿¡ ÇÁ·Î±×·¡¹ÖÇÔ.
-		New = new ButtonSetting("»õ·Î¸¸µé±â","New", 410, 420, 80, 30); // ºÒ·¯¿À±â ¹öÆ°À» x=100,y=420 ¶³¾îÁø°÷¿¡ Å©±â 80 X 30 À¸·Î ¹öÆ° »ý¼º
-		New.addActionListener(new myActionListener());
-		
-		left.add(Routine); //¿ÞÂÊ ÆäÀÌÁö¿¡ °¢ È­¸éµéÀ» ³ÖÀ½
-		left.add(Mouse);
-		left.add(Guide);
-		left.add(Setting);
-		left.add(save);
-		left.add(load);
-		left.add(New);
+
 		right.add(rightsetting); //¿À¸¥ÂÊ ÆäÀÌÁö¿¡ °í±Þ¼³Á¤À» ³ÖÀ½.
 
 		content.add(left); //ÀüÃ¼È­¸é¿¡ ¿ÞÂÊÆäÀÌÁö¿Í ¿À¸¥ÂÊÆäÀÌÁö¸¦ ³ÖÀ½.
@@ -107,7 +92,16 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 					
 					Routine.View(); //·çÆ¾ È­¸é(¿ÞÂÊÁß¾Ó)°ú ¸¶¿ì½º È­¸é(À§ÂÊ Áß¾Ó)Àº  Ç×»ó ¹Ù²îµµ·Ï ÇØ¾ßÇÏ¹Ç·Î ¼³Á¤ÇÔ.
 					Mouse.View();
-		
+					left.View();
+					Guide.View();
+					Setting.View();
+					
+					left.add(Routine); //¿ÞÂÊ ÆäÀÌÁö¿¡ °¢ È­¸éµéÀ» ³ÖÀ½
+					left.add(Mouse);
+					left.add(Guide);
+					left.add(Setting);
+
+					left.repaint();
 					content.repaint(); //È­¸éÀ» °»½ÅÇÑ´Ù.
 		        }catch (Exception ex){
 		        	System.out.println(ex.getMessage());
@@ -117,39 +111,7 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 	}
 	
 	//¹öÆ° ¼³Á¤ ¹× F5, F6Å°¿¡ ´ëÇÑ ¼³Á¤µé
-	class myActionListener implements ActionListener, KeyListener{
-
-
-		@SuppressWarnings("unchecked")
-		@Override
-		//¹öÆ° ¼³Á¤
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			 //¿À·ù°¡ ³ª¸é Àâ¾ÆÁÖ´Â ÇÔ¼ö.
-			try {
-				switch(e.getActionCommand()) {
-				
-				case "Save": //¹öÆ°ÀÇ ÀÔ·ÂÀÌ SaveÀÌ¸é
-					String S = JOptionPane.showInputDialog(null,"ÀúÀå½Ã ÆÄÀÏ¸íÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä. \n \\  /  :  \"  *  ?  .  <  >  |  \n ÀÔ·Â½Ã ÆÄÀÏÀÌ »ý¼ºµÇÁö ¾ÊÀ» ¼ö ÀÖ½À´Ï´Ù.)","input",JOptionPane.QUESTION_MESSAGE);
-					RD = new RoutineData(); 
-					RD.setObj(Constant.data); // Routine µéÀ» Á÷·ÄÈ­ ½ÃÅ°°í
-					new FileData(); //ÆÄÀÏÀ» ¸¸µé¾îÁÖ´Â class¸¦ »ý¼ºÇÑµÚ
-					FileData.save(S, RD.getObj()); //À§¿¡¼­ ÀÔ·ÂÇÑ ÆÄÀÏÀÌ¸§ D·Î RoutineµéÀ» ÀúÀåÇÔ.
-					break;
-					
-				case "Load": // ¹öÆ°ÀÇ ÀÔ·ÂÀÌ LoadÀÌ¸é
-					String L = JOptionPane.showInputDialog(null,"ºÒ·¯¿Ã ÆÄÀÏ¸íÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.","input",JOptionPane.QUESTION_MESSAGE);
-					new FileData();
-					Constant.data = (Vector<DataSetting>) FileData.read(L); //ÆÄÀÏÀ» ÀÐ¾î¼­ Constant Å¬·¡½ºÀÇ data¿¡ ÀúÀå.
-					break;
-					
-				case "New": // ¹öÆ°ÀÇ ÀÔ·ÂÀÌ NewÀÌ¸é
-					int Ok = JOptionPane.showOptionDialog(null, "Á¤¸»·Î »õ·Î¸¸µå½Ã°Ú½À´Ï±î?", "new", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-					if(Ok == 0) Constant.data.removeAllElements();
-					break;
-				}
-			}catch(Exception E) {}
-		}
+	class myActionListener implements KeyListener{
 
 		//Å° ¼³Á¤
 		@SuppressWarnings("deprecation")

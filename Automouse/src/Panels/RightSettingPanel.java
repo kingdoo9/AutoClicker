@@ -10,6 +10,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
 import Constants.Constant;
+import Constants.Language;
 import Labels.InputLabel;
 import Labels.NomalLabel;
 import Setting.ButtonSetting;
@@ -45,33 +46,35 @@ public class RightSettingPanel extends PanelSetting{
 			
 		for(char i : Data.getKind()) { //각 데이터마다 종류를 가지고있는데 그 종류대로 다음을 표시함. 'Data 패키지' 의 각 설정을 참고.
 			if(i == 'M') { //마우스 초기 좌표
-				this.add(new NomalLabel("시작 좌표 : ", 20, j, 150, 30));
+				this.add(new NomalLabel(Language.Language[Language.Lan.SPosition.ordinal()+Language.LSelect], 20, j, 150, 30));
 				this.add(new NomalLabel("X: "+Integer.toString(Data.getSmouseX())+" Y: "+Integer.toString(Data.getSmouseY()),180,j,130,30));
-				this.add(new NomalLabel("('1' 키를 꾹 눌러주세요.)",180,j+20,180,30));
+				this.add(new NomalLabel(Language.Language[Language.Lan.press1.ordinal()+Language.LSelect],180,j+20,180,30));
 			}else if(i == 'E') { //마우스 종료 좌표
-				this.add(new NomalLabel("종료 좌표 : ", 20, j, 150, 30));
+				this.add(new NomalLabel(Language.Language[Language.Lan.EPosition.ordinal()+Language.LSelect], 20, j, 150, 30));
 				this.add(new NomalLabel("X: "+Integer.toString(Data.getEmouseX())+" Y: "+Integer.toString(Data.getEmouseY()),180,j,130,30));
-				this.add(new NomalLabel("('2' 키를 꾹 눌러주세요.)",180,j+20,180,30));
+				this.add(new NomalLabel(Language.Language[Language.Lan.press2.ordinal()+Language.LSelect],180,j+20,180,30));
 			}else if(i == 'N') { //횟수
-				set1 = new ButtonSetting("Count Set-up","Count Set-up", 270, j+5, 150, 20);
+				set1 = new ButtonSetting(Language.Language[Language.Lan.setup.ordinal()+Language.LSelect],"Count Set-up", 270, j+5, 80, 20);
 				set1.addActionListener(new myActionListener());
-				this.add(new NomalLabel(Data.getName() +" Count : ", 20, j, 150, 30));
+				this.add(new NomalLabel(Data.getName() +Language.Language[Language.Lan.count.ordinal()+Language.LSelect], 20, j, 150, 30));
 				this.add(new InputLabel(Integer.toString(Data.getNumber()), 180, j, 80, 30));
 				this.add(set1);
 			}else if(i == 'R') { //초당 반복횟수
-				set2 = new ButtonSetting("repeat Set-up","repeat Set-up", 270, j+5, 150, 20);
+				set2 = new ButtonSetting(Language.Language[Language.Lan.setup.ordinal()+Language.LSelect],"repeat Set-up", 270, j+5, 80, 20);
 				set2.addActionListener(new myActionListener());
-				this.add(new NomalLabel(Data.getName() +" repeat(1s) : ", 20, j, 150, 30));
+				this.add(new NomalLabel(Data.getName() +Language.Language[Language.Lan.repeat.ordinal()+Language.LSelect], 20, j, 150, 30));
+				this.add(new NomalLabel(Language.Language[Language.Lan.MsgRepeat.ordinal()+Language.LSelect],20,j+25,300,30));
 				this.add(new InputLabel(Integer.toString(Data.getRepeat()), 180, j, 80, 30));
 				this.add(set2);
 			}else if(i == 'D') { //대기 시간
-				set3 = new ButtonSetting("Delay Set-up","Delay Set-up", 270, j+5, 150, 20);
+				set3 = new ButtonSetting(Language.Language[Language.Lan.setup.ordinal()+Language.LSelect],"Delay Set-up", 270, j+5, 80, 20);
 				set3.addActionListener(new myActionListener());
-				this.add(new NomalLabel("Delay time(ms) : ", 20, j, 150, 30));
+				this.add(new NomalLabel(Language.Language[Language.Lan.delay.ordinal()+Language.LSelect], 20, j, 150, 30));
+				this.add(new NomalLabel(Language.Language[Language.Lan.MsgDelay.ordinal()+Language.LSelect],20,j+25,300,30));
 				this.add(new InputLabel(Integer.toString(Data.getDelay()), 180, j, 80, 30));
 				this.add(set3);
 			}else if(i == 'C') { //색 조건부 설정
-				this.add(new NomalLabel("Color : ", 20, j, 150, 30));
+				this.add(new NomalLabel(Language.Language[Language.Lan.Color.ordinal()+Language.LSelect], 20, j, 150, 30));
 				this.add(new NomalLabel(
 						"R: "+Integer.toString(Data.getRGB().getRed())+" "+
 						"G: "+Integer.toString(Data.getRGB().getGreen())+" "+
@@ -79,9 +82,10 @@ public class RightSettingPanel extends PanelSetting{
 				ButtonSetting ViewColor = new ButtonSetting("","", 360, j, 90, 30);
 				ViewColor.setBackground(Data.getRGB());
 				this.add(ViewColor);
-				this.add(new NomalLabel("(Hold-On '3' key)",180,j+20,130,30));
+				this.add(new NomalLabel(Language.Language[Language.Lan.press3.ordinal()+Language.LSelect],180,j+20,180,30));
 			}else if(i == 'H') { //색이 나올때까지 대기할 것인가.
-				this.add(new NomalLabel("Hold-On Setting", 20, j, 150, 30));
+				this.add(new NomalLabel(Language.Language[Language.Lan.HSetting.ordinal()+Language.LSelect], 20, j, 150, 30));
+				this.add(new NomalLabel(Language.Language[Language.Lan.MsgHSetting.ordinal()+Language.LSelect],20,j+20,400,30));
 				JCheckBox check = new JCheckBox();
 				check.setSelected(Data.isHoldon());
 				check.setBounds(180, j+5, 20, 20);
@@ -89,8 +93,8 @@ public class RightSettingPanel extends PanelSetting{
 				check.setActionCommand("check");
 				this.add(check);
 			}else if(i == 'c') { //색이 바뀔때까지 대기할 것인가.
-				this.add(new NomalLabel("Color Changed", 20, j, 150, 30));
-				this.add(new NomalLabel("( If Color Changed, Then Continue )",20,j+20,300,30));
+				this.add(new NomalLabel(Language.Language[Language.Lan.CSetting.ordinal()+Language.LSelect], 20, j, 150, 30));
+				this.add(new NomalLabel(Language.Language[Language.Lan.MsgCSetting.ordinal()+Language.LSelect],20,j+20,300,30));
 				JCheckBox check = new JCheckBox();
 				check.setSelected(Data.isChangedColor());
 				check.setBounds(180, j+5, 20, 20);
@@ -101,13 +105,13 @@ public class RightSettingPanel extends PanelSetting{
 			j += 60; //각 조건들 사이에는 Y축으로 60의 간격이 있음.
 		}
 		
-		save = new ButtonSetting("Save","Save", 20, 405, 80, 30);
+		save = new ButtonSetting(Language.Language[Language.Lan.Save.ordinal()+Language.LSelect],"Save", 20, 405, 80, 30);
 		save.addActionListener(new myActionListener());
-		delete = new ButtonSetting("Delete","Delete",375,405,80,30);
+		delete = new ButtonSetting(Language.Language[Language.Lan.Delete.ordinal()+Language.LSelect],"Delete",375,405,80,30);
 		delete.addActionListener(new myActionListener());
-		up = new ButtonSetting("Up","Up",179,405,50,30);
+		up = new ButtonSetting(Language.Language[Language.Lan.Up.ordinal()+Language.LSelect],"Up",179,405,50,30);
 		up.addActionListener(new myActionListener());
-		down = new ButtonSetting("Down","Down",233,405,50,30);
+		down = new ButtonSetting(Language.Language[Language.Lan.Down.ordinal()+Language.LSelect],"Down",233,405,50,30);
 		down.addActionListener(new myActionListener());
 		
 		this.add(save);
@@ -131,18 +135,18 @@ public class RightSettingPanel extends PanelSetting{
 				switch(e.getActionCommand()){
 				
 				case "Count Set-up": //횟수를 입력받아 저장
-					String N = JOptionPane.showInputDialog(null,"Input Number","input",JOptionPane.QUESTION_MESSAGE);
+					String N = JOptionPane.showInputDialog(null,Language.Language[Language.Lan.InputNumber.ordinal()+Language.LSelect],"input",JOptionPane.QUESTION_MESSAGE);
 					Data.setNumber(Integer.parseInt(N));
 		        	view(); //오른쪽 페이지 갱신
 					break;
 				case "repeat Set-up": //초당 반복횟수를 입력받아 저장
-					String R = JOptionPane.showInputDialog(null,"Input Number (N<100)","input",JOptionPane.QUESTION_MESSAGE);
+					String R = JOptionPane.showInputDialog(null,Language.Language[Language.Lan.InputNumber.ordinal()+Language.LSelect],"input",JOptionPane.QUESTION_MESSAGE);
 					if(Integer.parseInt(R)>100 || Integer.parseInt(R)<=0) break;
 					Data.setRepeat(Integer.parseInt(R));
 		        	view();
 					break;
 				case "Delay Set-up": //대기 시간을 입력받아 저장
-					String D = JOptionPane.showInputDialog(null,"Input Number (1000 = 1s)","input",JOptionPane.QUESTION_MESSAGE);
+					String D = JOptionPane.showInputDialog(null,Language.Language[Language.Lan.InputNumber.ordinal()+Language.LSelect],"input",JOptionPane.QUESTION_MESSAGE);
 					Data.setDelay(Integer.parseInt(D));
 		        	view();
 					break;

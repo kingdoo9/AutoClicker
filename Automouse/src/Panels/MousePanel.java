@@ -3,6 +3,7 @@ package Panels;
 import java.awt.Color;
 
 import Constants.Constant;
+import Constants.Language;
 import Labels.NomalLabel;
 import Setting.PanelSetting;
 
@@ -16,7 +17,7 @@ public class MousePanel extends PanelSetting{
 	public void View() { //화면을 갱신한다.
 		this.removeAll();
 		
-		this.add(new NomalLabel("현 좌표:       X: "+Constant.mouse.MouseGetX()+"     Y: "+Constant.mouse.MouseGetY(), 10, 10, 250, 20));
+		this.add(new NomalLabel(Language.Language[Language.Lan.mouse.ordinal()+Language.LSelect]+":       X: "+Constant.mouse.MouseGetX()+"     Y: "+Constant.mouse.MouseGetY(), 10, 10, 250, 20));
 		
 		this.repaint();
 	}

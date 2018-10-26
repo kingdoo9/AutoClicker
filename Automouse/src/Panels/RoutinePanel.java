@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Constants.Constant;
+import Constants.Language;
 import Labels.NomalLabel;
 import Setting.ButtonSetting;
 import Setting.PanelSetting;
@@ -26,10 +27,10 @@ public class RoutinePanel extends PanelSetting{
 		BoundY = 1; //각 버튼끼리 거리를 조절해 생성
 		DataNum = (Page-1)*9; //데이타에 숫자를 정함. 버튼을 눌렀을때 그 데이터를 설정창으로 보내기 위함.
 		
-		prev = new ButtonSetting("이전","Prev",20,319,80,20); //이전 페이지 버튼
+		prev = new ButtonSetting(Language.Language[Language.Lan.prev.ordinal()+Language.LSelect],"Prev",20,319,80,20); //이전 페이지 버튼
 		prev.addActionListener(new myActionListener()); //이 설정은 페이지 하단에 프로그래밍함.
 		
-		next = new ButtonSetting("다음","Next",149,319,80,20); //다음 페이지 버튼
+		next = new ButtonSetting(Language.Language[Language.Lan.next.ordinal()+Language.LSelect],"Next",149,319,80,20); //다음 페이지 버튼
 		next.addActionListener(new myActionListener());
 		
 		pages = new NomalLabel(Integer.toString(Page), 119, 319, 20, 20); //페이지 숫자표시 label
