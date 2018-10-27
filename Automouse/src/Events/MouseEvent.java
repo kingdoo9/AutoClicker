@@ -4,6 +4,7 @@ import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.Robot;
+import java.awt.Toolkit;
 
 import javax.swing.event.MouseInputListener;
 
@@ -14,6 +15,7 @@ public class MouseEvent implements MouseInputListener{
 		
 		public MouseEvent() {
 			mousePoint.start(); //항시 작동하게 설정.
+			System.out.println(Toolkit.getDefaultToolkit().getScreenSize());
 		}
 		
 		@Override
@@ -41,7 +43,6 @@ public class MouseEvent implements MouseInputListener{
 			} catch (AWTException e) {}
 			return null;
 		}
-		
 		//항시 마우스 좌표를 가져오는 class. (Runnable로 인해 항시 실행중이다.)
 		class mousePoint extends Thread implements Runnable{
 			
@@ -49,6 +50,7 @@ public class MouseEvent implements MouseInputListener{
 			public void run(){ 
 				while (true){ 
 			        try{ 
+			        	
 			        	mouseX = (int) MouseInfo.getPointerInfo().getLocation().getX();
 			    		mouseY = (int) MouseInfo.getPointerInfo().getLocation().getY();
 			    		Thread.sleep(120); 
