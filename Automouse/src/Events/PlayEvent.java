@@ -40,6 +40,12 @@ public class PlayEvent extends Thread implements Runnable{
 						if(StackColor.peek().equals(data.getRGB())) {
 							for(int i=0; i<data.getNumber();i++) {	
 								bot.mouseMove(data.getSmouseX(), data.getSmouseY());
+								for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != data.getSmouseX() && y != data.getSmouseY(); x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
+									int a, b;
+									a = x-data.getSmouseX();
+									b = y-data.getSmouseY();
+									bot.mouseMove(x-a, y-b);
+								}
 								bot.mousePress(InputEvent.BUTTON1_MASK);
 								bot.mouseRelease(InputEvent.BUTTON1_MASK);
 								Thread.sleep(1000/data.getRepeat());
@@ -52,8 +58,21 @@ public class PlayEvent extends Thread implements Runnable{
 						if(StackColor.peek().equals(data.getRGB())) {
 							for(int i=0; i<data.getNumber();i++) {	
 								bot.mouseMove(data.getSmouseX(), data.getSmouseY());
+								for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != data.getSmouseX() && y != data.getSmouseY(); x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
+									int a, b;
+									a = x-data.getSmouseX();
+									b = y-data.getSmouseY();
+									bot.mouseMove(x-a, y-b);
+								}
 								bot.mousePress(InputEvent.BUTTON1_MASK);
+								Thread.sleep(100);
 								bot.mouseMove(data.getEmouseX(), data.getEmouseY());
+								for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != data.getEmouseX() && y != data.getEmouseY(); x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
+									int a, b;
+									a = x-data.getEmouseX();
+									b = y-data.getEmouseY();
+									bot.mouseMove(x-a, y-b);
+								}
 								bot.mouseRelease(InputEvent.BUTTON1_MASK);
 								Thread.sleep(1000/data.getRepeat());
 							}
@@ -70,9 +89,21 @@ public class PlayEvent extends Thread implements Runnable{
 					//데이터 이름이 Color Start이면
 					case "Color Start":
 						bot.mouseMove(data.getSmouseX(), data.getSmouseY());
+						for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != data.getSmouseX() && y != data.getSmouseY(); x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
+							int a, b;
+							a = x-data.getSmouseX();
+							b = y-data.getSmouseY();
+							bot.mouseMove(x-a, y-b);
+						}
 						while(data.isHoldon()) {
 							Thread.sleep(100);
 							bot.mouseMove(data.getSmouseX(), data.getSmouseY());
+							for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != data.getSmouseX() && y != data.getSmouseY(); x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
+								int a, b;
+								a = x-data.getSmouseX();
+								b = y-data.getSmouseY();
+								bot.mouseMove(x-a, y-b);
+							}
 							if(data.getRGB().equals(bot.getPixelColor(data.getSmouseX(), data.getSmouseY())))
 								break;
 						}
@@ -88,6 +119,12 @@ public class PlayEvent extends Thread implements Runnable{
 							while(true) {
 								Thread.sleep(100);
 								bot.mouseMove(data.getSmouseX(), data.getSmouseY());
+								for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != data.getSmouseX() && y != data.getSmouseY(); x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
+									int a, b;
+									a = x-data.getSmouseX();
+									b = y-data.getSmouseY();
+									bot.mouseMove(x-a, y-b);
+								}
 								System.out.println("comming2");
 								if(!data.getRGB().equals(bot.getPixelColor(data.getSmouseX(), data.getSmouseY())))break;
 							}

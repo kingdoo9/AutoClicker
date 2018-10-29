@@ -203,10 +203,22 @@ public class RightSettingPanel extends PanelSetting{
 					break;
 				case "GoS": // 좌표지점으로 마우스 이동시키기.
 					new Robot().mouseMove(Data.getSmouseX(), Data.getSmouseY());
+					for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != Data.getSmouseX() && y != Data.getSmouseY(); x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
+						int a, b;
+						a = x-Data.getSmouseX();
+						b = y-Data.getSmouseY();
+						new Robot().mouseMove(x-a, y-b);
+					}
 					break;
 				
 				case "GoE": // 좌표지점으로 마우스 이동시키기.
 					new Robot().mouseMove(Data.getEmouseX(), Data.getEmouseY());
+					for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != Data.getEmouseX() && y != Data.getEmouseY(); x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
+						int a, b;
+						a = x-Data.getEmouseX();
+						b = y-Data.getEmouseY();
+						new Robot().mouseMove(x-a, y-b);
+					}
 					break;
 				}
 				
