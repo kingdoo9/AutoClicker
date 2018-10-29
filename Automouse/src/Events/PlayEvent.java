@@ -21,9 +21,33 @@ public class PlayEvent extends Thread implements Runnable{
 		repeatN = repeat; // 사용자가 지정한 횟수
 		StackColor.removeAllElements();
 		StackColor.add(new Color(255,255,255));
+		setColor();
 	}
 	
+	public void setColor() {
+		for(DataSetting data : Constant.data) {
+			if(data.getName().equals("Color Start")) {
+				StackColor.add(data.getRGB());
+			}
+			if(data.getName().equals("Color End")) {
+				StackColor.pop();
+			}
+			if(!data.getName().equals("Color Start")&&!data.getName().equals("Color End")) {
+				data.setRGB(StackColor.peek());
+			}
+		}
+		
+	}
 	public int getRuntimes() {return Runtimes;}
+	
+	public void checkPoint(int dataX, int dataY) { //다양한 해상도를 호환가능하게 설정. 마우스 위치가 실제와다르더라도 정확한 지점을 찾아감.
+		for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != dataX && y != dataY; x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
+			int a, b;
+			a = x-dataX;
+			b = y-dataY;
+			bot.mouseMove(x-a, y-b);
+		}
+	}
 	
 	@Override
 	public void run() {
@@ -40,12 +64,8 @@ public class PlayEvent extends Thread implements Runnable{
 						if(StackColor.peek().equals(data.getRGB())) {
 							for(int i=0; i<data.getNumber();i++) {	
 								bot.mouseMove(data.getSmouseX(), data.getSmouseY());
-								for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != data.getSmouseX() && y != data.getSmouseY(); x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
-									int a, b;
-									a = x-data.getSmouseX();
-									b = y-data.getSmouseY();
-									bot.mouseMove(x-a, y-b);
-								}
+								checkPoint(data.getSmouseX(), data.getSmouseY());
+								
 								bot.mousePress(InputEvent.BUTTON1_MASK);
 								bot.mouseRelease(InputEvent.BUTTON1_MASK);
 								Thread.sleep(1000/data.getRepeat());
@@ -58,21 +78,15 @@ public class PlayEvent extends Thread implements Runnable{
 						if(StackColor.peek().equals(data.getRGB())) {
 							for(int i=0; i<data.getNumber();i++) {	
 								bot.mouseMove(data.getSmouseX(), data.getSmouseY());
-								for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != data.getSmouseX() && y != data.getSmouseY(); x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
-									int a, b;
-									a = x-data.getSmouseX();
-									b = y-data.getSmouseY();
-									bot.mouseMove(x-a, y-b);
-								}
+								checkPoint(data.getSmouseX(), data.getSmouseY());
+								
 								bot.mousePress(InputEvent.BUTTON1_MASK);
+								
 								Thread.sleep(100);
+								
 								bot.mouseMove(data.getEmouseX(), data.getEmouseY());
-								for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != data.getEmouseX() && y != data.getEmouseY(); x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
-									int a, b;
-									a = x-data.getEmouseX();
-									b = y-data.getEmouseY();
-									bot.mouseMove(x-a, y-b);
-								}
+								checkPoint(data.getEmouseX(), data.getEmouseY());
+								
 								bot.mouseRelease(InputEvent.BUTTON1_MASK);
 								Thread.sleep(1000/data.getRepeat());
 							}
@@ -88,44 +102,34 @@ public class PlayEvent extends Thread implements Runnable{
 						
 					//데이터 이름이 Color Start이면
 					case "Color Start":
-						bot.mouseMove(data.getSmouseX(), data.getSmouseY());
-						for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != data.getSmouseX() && y != data.getSmouseY(); x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
-							int a, b;
-							a = x-data.getSmouseX();
-							b = y-data.getSmouseY();
-							bot.mouseMove(x-a, y-b);
-						}
-						while(data.isHoldon()) {
+						bot.mouseMove(data.getSmouseX(), data.getSmouseY()); //마우스를 원하는 자리에
+						checkPoint(data.getSmouseX(), data.getSmouseY());
+						
+						while(data.isHoldon()) { //Hold-on 버튼이 눌러져 있는 경우, 색이 나올때까지 마냥 대기함.
 							Thread.sleep(100);
 							bot.mouseMove(data.getSmouseX(), data.getSmouseY());
-							for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != data.getSmouseX() && y != data.getSmouseY(); x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
-								int a, b;
-								a = x-data.getSmouseX();
-								b = y-data.getSmouseY();
-								bot.mouseMove(x-a, y-b);
-							}
+							checkPoint(data.getSmouseX(), data.getSmouseY());
+							
 							if(data.getRGB().equals(bot.getPixelColor(data.getSmouseX(), data.getSmouseY())))
 								break;
 						}
+						
+						//일치한 색이 나왔다면 stack에 저장함.
 						if(data.getRGB().equals(bot.getPixelColor(data.getSmouseX(), data.getSmouseY()))) {
 							ColorCount++;
 							if(ColorCount == data.getNumber()) {
 								StackColor.add(data.getRGB());
-								System.out.println("comming1");
 								ColorCount = 0;
 							}
 						}
+						
+						//changed-Color 버튼이 눌러져 있는 경우, 색이 다른색으로 바뀔때까지 마냥 대기함
 						if(data.isChangedColor()) {
 							while(true) {
 								Thread.sleep(100);
 								bot.mouseMove(data.getSmouseX(), data.getSmouseY());
-								for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != data.getSmouseX() && y != data.getSmouseY(); x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
-									int a, b;
-									a = x-data.getSmouseX();
-									b = y-data.getSmouseY();
-									bot.mouseMove(x-a, y-b);
-								}
-								System.out.println("comming2");
+								checkPoint(data.getSmouseX(), data.getSmouseY());
+								
 								if(!data.getRGB().equals(bot.getPixelColor(data.getSmouseX(), data.getSmouseY())))break;
 							}
 						}

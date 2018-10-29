@@ -4,7 +4,7 @@ public class Language {
 
 	 public static final String Language[] = {"Save", "Load", "New", "Start", "Stop", "Language", "mouse",
 			 								"next", "prev", "Click Setting", "Drag Setting", "Deley Setting",
-			 								"Color Start", "Color End", "if", "Delete", "Up", "Down", "Color :",
+			 								"Color Start", "Color End", "Delete", "Up", "Down", "Color :",
 			 								"Input File name \n If \\  /  :  \"  *  ?  .  <  >  |  \n you type, The file can't save.",
 			 								"Load File name.", "(Press '1' Key)", "(Press '2' Key)", "(Press '3' Key)",
 			 								"set-up", " Count :", " repeat :", "Delay time :", "( per 1 secend )", "( 1000 = 1s )",
@@ -17,7 +17,7 @@ public class Language {
 			 								
 			 								 "저장하기", "불러오기", "새로만들기", "시작", "정지", "언어", "현 좌표",
 			 								 "다음", "이전", "클릭 설정", "드래그 설정", "대기 설정",
-			 								 "색 조건 설정", "색 조건 종료", "조건문", "삭제하기", "위로", "아래로", "색 설정 :",
+			 								 "색 조건 설정", "색 조건 종료", "삭제하기", "위로", "아래로", "색 설정 :",
 			 								 "저장시 파일명을 입력해주세요. \n \\ /  :  \"  *  ?  .  <  >  |  \n 입력시 파일이 생성되지 않을 수 있습니다.",
 			 								 "불러올 파일명을 입력해주세요.", "('1'번 키를 눌러주세요)", "('2'번 키를 눌러주세요)", "('3'번 키를 눌러주세요)",
 			 								 "설정", " 횟수 :", " 반복 :", "대기 시간 :", "( 초당 몇회 반복 )", "( 1000 = 1초 )",
@@ -30,7 +30,7 @@ public class Language {
 	
 	 public static enum Lan {Save, Load, New, Start, Stop, Language, mouse,
 		 					next, prev, click, Drag, Delay,
-		 					ColorS, ColorE, If, Delete, Up, Down, Color,
+		 					ColorS, ColorE, Delete, Up, Down, Color,
 		 					MsgSFile,
 		 					MsgLFile, press1, press2, press3,
 		 					setup, count, repeat, delay, MsgRepeat, MsgDelay,

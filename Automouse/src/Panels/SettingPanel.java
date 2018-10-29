@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Constants.Language;
-import Labels.NomalLabel;
 import Setting.ButtonSetting;
 import Setting.PanelSetting;
 
@@ -33,16 +32,15 @@ public class SettingPanel extends PanelSetting{
 		Delay = new ButtonSetting(Language.Language[Language.Lan.Delay.ordinal()+Language.LSelect],"Delay Setting", 10, 90, 200, 30);
 		Delay.addActionListener(new myActionListener());
 
-		ColorS = new ButtonSetting(Language.Language[Language.Lan.ColorS.ordinal()+Language.LSelect],"Color Start", 10, 180, 200, 30);
+		ColorS = new ButtonSetting(Language.Language[Language.Lan.ColorS.ordinal()+Language.LSelect],"Color Start", 10, 130, 200, 30);
 		ColorS.addActionListener(new myActionListener());
 		
-		ColorE = new ButtonSetting(Language.Language[Language.Lan.ColorE.ordinal()+Language.LSelect],"Color End", 10, 220, 200, 30);
+		ColorE = new ButtonSetting(Language.Language[Language.Lan.ColorE.ordinal()+Language.LSelect],"Color End", 10, 170, 200, 30);
 		ColorE.addActionListener(new myActionListener());
 		
 		this.add(Click);
 		this.add(Drag);
 		this.add(Delay);
-		this.add(new NomalLabel(Language.Language[Language.Lan.If.ordinal()+Language.LSelect], 10, 150, 200, 20));
 		this.add(ColorS);
 		this.add(ColorE);
 		
@@ -77,7 +75,6 @@ public class SettingPanel extends PanelSetting{
 				break;
 			case "Color End":
 				Rightsetting.onSee_Focus();
-				Rightsetting.Colorinit();
 				Rightsetting.setData(new Data.ColorE());
 				Rightsetting.view();
 				break;

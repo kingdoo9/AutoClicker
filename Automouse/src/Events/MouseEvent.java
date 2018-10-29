@@ -4,7 +4,6 @@ import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.MouseInfo;
 import java.awt.Robot;
-import java.awt.Toolkit;
 
 import javax.swing.event.MouseInputListener;
 
@@ -15,7 +14,6 @@ public class MouseEvent implements MouseInputListener{
 		
 		public MouseEvent() {
 			mousePoint.start(); //항시 작동하게 설정.
-			System.out.println(Toolkit.getDefaultToolkit().getScreenSize());
 		}
 		
 		@Override

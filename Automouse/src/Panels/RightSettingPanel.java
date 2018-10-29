@@ -21,7 +21,6 @@ import Setting.PanelSetting;
 public class RightSettingPanel extends PanelSetting{
 	private static final long serialVersionUID = 1L;
 	private ButtonSetting save, delete, set1, set2, set3, up, down, GoS, GoE; //버튼들 설정
-	private Color ColorSet = new Color(255,255,255); //Color조건부가 시작되면 그 하단에 있는 애들도 같은 색으로 저장하는 변수
 	private DataSetting Data;
 	private boolean see_Focus = false; //화면 보여짐, 화면 키입력을 되도록 하는 boolean변수
 	
@@ -34,7 +33,6 @@ public class RightSettingPanel extends PanelSetting{
 	
 	public Boolean getSee_Focus() {return see_Focus;} //이 페이지가 활성화 되었는지를 return. (FramePanel에서 사용함.)
 	public void onSee_Focus() {this.see_Focus = true;} //이 페이지를 보여주고 키입력이 되도록 만듬.(SettingPanel class에서 사용함.) 
-	public void Colorinit() { this.ColorSet = new Color(255,255,255);} //Color End버튼을 눌렀을때  Color세팅을 초기화함(SettingPanel class에서 사용함.)
 	public void setData(DataSetting data) {
 		Data = data;
 	}
@@ -42,7 +40,6 @@ public class RightSettingPanel extends PanelSetting{
 	
 	public void view() {	//오른쪽 페이지를 표시. 
 		this.removeAll();
-		if(!ColorSet.equals(new Color(255,255,255))&&!Data.isSaved()&&Data.getName()!="Color Start") Data.setRGB(ColorSet); //Color Start가 눌러져있었다면 색 설정.
 		int j = 20; //일정부분씩 떨어뜨려 설정들을 표시해주게 만든다.
 			
 		for(char i : Data.getKind()) { //각 데이터마다 종류를 가지고있는데 그 종류대로 다음을 표시함. 'Data 패키지' 의 각 설정을 참고.
@@ -161,15 +158,15 @@ public class RightSettingPanel extends PanelSetting{
 					see_Focus = false;
 					if(!Data.isSaved()) { // 저장되어있는 값이 아니라면
 						Constant.data.add(Data);
-						if(Data.getName().equals("Color Start"))
-							ColorSet = Data.getRGB();
 						Data.setSaved(true);
 					}
 					view();
 					break;
 				case "Delete": //데이터에 있는 값을 삭제시키고 오른쪽 페이지를 비활성화.
 					see_Focus = false;
-					if(Data.isSaved()) Constant.data.removeElement(Data);
+					if(Data.isSaved()) {
+						Constant.data.removeElement(Data);
+					}
 					view();
 					break;
 				case "check": //체크박스를 체크시키거나 언체크시킴.
@@ -243,16 +240,7 @@ public class RightSettingPanel extends PanelSetting{
 			if(e.getKeyCode() == KeyEvent.VK_3) { //3번키를 눌렀을때
 				if(Data.getName().equals("Color Start")) {
 					Data.setRGB(Constant.mouse.getColor());
-					if(Data.isSaved()) ColorSet = Data.getRGB();
-					
-					if(Data.isSaved() && Constant.data.indexOf(Data) != Constant.data.size()-1) {
-						for(int i=Constant.data.indexOf(Data)+1;; i++) {
-							if(Constant.data.elementAt(i).getName().equals("Color End")) {ColorSet = new Color(255,255,255); break;}
-							Constant.data.elementAt(i).setRGB(Data.getRGB());
-							if(i == Constant.data.size()-1) break;
-						}
-					}
-				view();
+					view();
 				}
 			}
 			if(e.getKeyCode() == KeyEvent.VK_F5) { //'F5'번키를 눌렀을때
