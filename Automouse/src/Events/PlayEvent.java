@@ -14,17 +14,19 @@ public class PlayEvent extends Thread implements Runnable{
 	private Stack<Color> StackColor = new Stack<>();
 	private int ColorCount = 0; 
 	private int Runtimes=1; // 현재 몇번 돌고 있는지를 표시
-	private int repeatN=1;
+	private int repeatN=1; // 총 몇번 돌아야 하는지 표시
+	private int j; //현재 몇번째 data를 실행하는지 표시
 	
 	public PlayEvent(int repeat) throws AWTException {
 		bot = new Robot(); //마우스의 실제 클릭을 눌러줄 친구.
 		repeatN = repeat; // 사용자가 지정한 횟수
-		StackColor.removeAllElements();
+		
+		StackColor.removeAllElements(); // 스택에 있는 모든것을 지우고 흰색 컬러 하나를 넣음.
 		StackColor.add(new Color(255,255,255));
-		setColor();
+		setColor();  //시작전 컬러세팅을 모든 data에 실시함. 
 	}
 	
-	public void setColor() {
+	public void setColor() { //시작전 컬러세팅을 모든 data에 실시함. 
 		for(DataSetting data : Constant.data) {
 			if(data.getName().equals("Color Start")) {
 				StackColor.add(data.getRGB());
@@ -39,6 +41,8 @@ public class PlayEvent extends Thread implements Runnable{
 		
 	}
 	public int getRuntimes() {return Runtimes;}
+	public int getRepeatN() {return repeatN;}
+	public int getJ() {return j;}
 	
 	public void checkPoint(int dataX, int dataY) { //다양한 해상도를 호환가능하게 설정. 마우스 위치가 실제와다르더라도 정확한 지점을 찾아감.
 		for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != dataX && y != dataY; x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
@@ -54,7 +58,7 @@ public class PlayEvent extends Thread implements Runnable{
 		//사용자가 지정한 횟수만큼 반복 재생
 		for(Runtimes=1; Runtimes<=repeatN; Runtimes++) {
 			try {
-				for(int j=0; j<Constant.data.size(); j++) {
+				for(j=0; j<Constant.data.size(); j++) {
 					//데이터에 들어있는 것들을 하나씩 꺼냄
 					DataSetting data = Constant.data.elementAt(j);
 					switch(data.getName()) {
@@ -143,7 +147,6 @@ public class PlayEvent extends Thread implements Runnable{
 						break;
 					}
 				}
-				Thread.sleep(100);
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
 			}

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import Constants.Constant;
 import Constants.Language;
+import Events.PlayEvent;
 import Labels.NomalLabel;
 import Setting.ButtonSetting;
 import Setting.PanelSetting;
@@ -16,14 +17,17 @@ public class RoutinePanel extends PanelSetting{
 	private int BoundY=1, DataNum, DataSize, Page=1;
 	private NomalLabel pages;
 	private ButtonSetting prev, next;
+	private PlayEvent Play;
 
 	public RoutinePanel(int x, int y, int width, int height, Color color, RightSettingPanel rightsetting) {
 		super(x, y, width, height, color);
 		this.RS = rightsetting;
 	}
 	
-	public void View() { //FramePanel로 인해 항상 화면 갱신
+	public void View(PlayEvent play) { //FramePanel로 인해 항상 화면 갱신
 		this.removeAll();
+		Play = play;
+		
 		BoundY = 1; //각 버튼끼리 거리를 조절해 생성
 		DataNum = (Page-1)*9; //데이타에 숫자를 정함. 버튼을 눌렀을때 그 데이터를 설정창으로 보내기 위함.
 		
@@ -39,6 +43,7 @@ public class RoutinePanel extends PanelSetting{
 		for(int i=(Page-1)*9; i<DataSize && i<Page*9; i++) { //(페이지-1)*9 부터 데이터를 불러와서 9개까지 화면에 표시
 			ButtonSetting button = new ButtonSetting(Constant.data.elementAt(i).getName(),Integer.toString(DataNum), 1, BoundY, 248, 33);
 			button.addActionListener(new myActionListener());
+			if(play.isAlive() && i == play.getJ()) button.setBackground(new Color(223,223,223));
 			this.add(button);
 			DataNum++;
 			BoundY += 34; //각 버튼끼리 떨어져있는 거리
@@ -60,10 +65,10 @@ public class RoutinePanel extends PanelSetting{
 				switch(e.getActionCommand()) {
 				
 				case "Prev" : //이전페이지
-					if(Page != 1) { Page--; View();}
+					if(Page != 1) { Page--; View(Play);}
 					break;
 				case "Next" : //다음페이지
-					if(Page < (DataSize/9)+1) { Page++; View();}
+					if(Page < (DataSize/9)+1) { Page++; View(Play);}
 					break;
 					
 				default :

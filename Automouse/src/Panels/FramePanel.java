@@ -26,6 +26,7 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 	private PanelSetting right;
 	private LeftPanel left;
 	private PlayEvent play;
+	private PlayCountPanel PlayCount;
 
 	public FramePanel() throws InterruptedException, AWTException {
 		super("AutoSetting"); // ÇÁ·¹ÀÓÀÇ Á¦¸ñÇ¥½ÃÁÙÀÇ Á¦¸ñÀ» °áÁ¤.
@@ -42,7 +43,7 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 		//·çÆ¾ ÆÐ³Î
 		Routine = new RoutinePanel(10,60,250,350,Color.white,rightsetting);		
 		//F5, F6¸¦ ´©¸£½Ã¿À ÆÐ³Î
-		Guide = new GuidePanel(10,10,200,40,Color.white);	
+		Guide = new GuidePanel(10,10,160,40,Color.white);	
 		//¼³Á¤ ÆÐ³Î
 		Setting = new SettingPanel(270,60,220,350,Color.white,rightsetting);	
 		//¿À¸¥ÂÊ ÆÐ³Î
@@ -50,7 +51,12 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 		//¿ÞÂÊ ÆÐ³Î
 		left = new LeftPanel(0,0,500,465,new Color(213,242,211));		
 		//¸¶¿ì½º ÁÂÇ¥ ÆÐ³Î
-		Mouse = new MousePanel(220,10,270,40,Color.white);		
+		Mouse = new MousePanel(180,10,195,40,Color.white);		
+		//play ¼³Á¤
+		play = new PlayEvent(0);
+		//Play È½¼ö¸¦ ³ªÅ¸³»´Â ÆÐ³Î
+		PlayCount = new PlayCountPanel(385, 10, 105, 40, Color.white);
+		
 
 		right.add(rightsetting); //¿À¸¥ÂÊ ÆäÀÌÁö¿¡ °í±Þ¼³Á¤À» ³ÖÀ½.
 
@@ -70,28 +76,36 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 		        try{ 
 					Thread.sleep(120);  //ÀÛµ¿À» Àá½Ã ¸ØÃá´Ù. 1000 = 1s ÀÓ.
 					
+					//play°¡ ½ÃÀÛµÇ¸é °è¼Ó Æ÷Ä¿½º Àâ¾ÆÁÜ
+					if(play.isAlive()) {content.setFocusable(true); content.requestFocus();}
+					
 					//¿À¸¥ÂÊ ÆäÀÌÁö(¼³Á¤È­¸é)ÀÌ ÄÑÁ®ÀÖ´Ù¸é ¸ÞÀÎ È­¸éÀÇ Å° ÀÔ·ÂÀÌ ¾ÈµÇ°Ô ¸·´Â´Ù.
 					if(!rightsetting.getSee_Focus()) {
 						rightsetting.setFocusable(false);
-						content.setFocusable(true);
-						content.requestFocus();
+						if(!content.isFocusable()) {
+							content.setFocusable(true);
+							content.requestFocus();
+						}
 					}
 					else {
 						content.setFocusable(false);
 						rightsetting.setFocusable(true);
 						rightsetting.requestFocus();
+						
 					}
 					
-					Routine.View(); //·çÆ¾ È­¸é(¿ÞÂÊÁß¾Ó)°ú ¸¶¿ì½º È­¸é(À§ÂÊ Áß¾Ó)Àº  Ç×»ó ¹Ù²îµµ·Ï ÇØ¾ßÇÏ¹Ç·Î ¼³Á¤ÇÔ.
+					Routine.View(play); //·çÆ¾ È­¸é(¿ÞÂÊÁß¾Ó)°ú ¸¶¿ì½º È­¸é(À§ÂÊ Áß¾Ó)Àº  Ç×»ó ¹Ù²îµµ·Ï ÇØ¾ßÇÏ¹Ç·Î ¼³Á¤ÇÔ.
 					Mouse.View();
 					left.View();
 					Guide.View();
 					Setting.View();
+					PlayCount.View(play);
 					
 					left.add(Routine); //¿ÞÂÊ ÆäÀÌÁö¿¡ °¢ È­¸éµéÀ» ³ÖÀ½
 					left.add(Mouse);
 					left.add(Guide);
 					left.add(Setting);
+					left.add(PlayCount);
 
 					left.repaint();
 					content.repaint(); //È­¸éÀ» °»½ÅÇÑ´Ù.

@@ -39,6 +39,7 @@ public class RightSettingPanel extends PanelSetting{
 	
 	
 	public void view() {	//오른쪽 페이지를 표시. 
+		
 		this.removeAll();
 		int j = 20; //일정부분씩 떨어뜨려 설정들을 표시해주게 만든다.
 			
@@ -122,11 +123,10 @@ public class RightSettingPanel extends PanelSetting{
 		this.add(delete);
 		this.add(up);
 		this.add(down);
-		
+
 		this.revalidate();
 		this.repaint();
 		this.setVisible(see_Focus);
-		System.out.println(Data.getRGB());
 	}
 
 	//버튼 및 키 설정.
