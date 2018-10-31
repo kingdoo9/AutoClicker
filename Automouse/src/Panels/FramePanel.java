@@ -47,7 +47,7 @@ public class FramePanel extends JFrame{ //JFrame 함수. 프레임의 틀을 짜며 매 시�
 		//설정 패널
 		Setting = new SettingPanel(270,60,220,350,Color.white,rightsetting);	
 		//오른쪽 패널
-		right = new MainPanel(500,0,495,465,new Color(213,242,211));			
+		right = new NormalPanel(500,0,495,465,new Color(213,242,211));			
 		//왼쪽 패널
 		left = new LeftPanel(0,0,500,465,new Color(213,242,211));		
 		//마우스 좌표 패널

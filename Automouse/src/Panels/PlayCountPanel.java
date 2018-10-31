@@ -2,7 +2,6 @@ package Panels;
 
 import java.awt.Color;
 
-import Constants.Language;
 import Events.PlayEvent;
 import Labels.NomalLabel;
 import Setting.PanelSetting;
