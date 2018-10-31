@@ -31,6 +31,8 @@ public class RoutinePanel extends PanelSetting{
 		BoundY = 1; //각 버튼끼리 거리를 조절해 생성
 		DataNum = (Page-1)*9; //데이타에 숫자를 정함. 버튼을 눌렀을때 그 데이터를 설정창으로 보내기 위함.
 		
+		if(play.isAlive()) Page = (play.getJ()/9)+1;
+		
 		prev = new ButtonSetting(Language.Language[Language.Lan.prev.ordinal()+Language.LSelect],"Prev",20,319,80,20); //이전 페이지 버튼
 		prev.addActionListener(new myActionListener()); //이 설정은 페이지 하단에 프로그래밍함.
 		
@@ -48,6 +50,8 @@ public class RoutinePanel extends PanelSetting{
 			DataNum++;
 			BoundY += 34; //각 버튼끼리 떨어져있는 거리
 		}
+		
+
 		
 		this.add(pages);
 		this.add(prev);
