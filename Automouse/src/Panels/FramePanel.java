@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Constants.Constant;
+import Constants.Language;
 import Events.PlayEvent;
 import Setting.PanelSetting;
 
@@ -37,6 +38,7 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 		
 		//ÄÁÅ×ÀÌ³Ê (¸ðµçÆÐ³Î ÀúÀå°ø°£)
 		content = this.getContentPane();
+		content.setFocusable(true);
 		content.addKeyListener(new myActionListener()); //ÄÁÅ×ÀÌ³Ê Å° ÀÔ·ÂÀ» Ãß°¡ÇØÁØ´Ù. °¡Àå ÇÏ´Ü¿¡ Å° ÀÔ·Â ½Ã Çàµ¿À» ÇÁ·Î±×·¡¹ÖÇÔ.		
 		//¿À¸¥ÂÊ ¾ÈÂÊ ÆÐ³Î
 		rightsetting = new RightSettingPanel(10, 10, 475, 445, Color.white);		
@@ -128,7 +130,7 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 
 				if(e.getKeyCode() == KeyEvent.VK_F5) {
 					//¹Ýº¹È½¼ö ¼³Á¤ ´ëÈ­Ã¢
-					String D = JOptionPane.showInputDialog(null,"¸î¹ø ¹Ýº¹ÇÏ½Ã°Ú½À´Ï±î?","input",JOptionPane.QUESTION_MESSAGE);
+					String D = JOptionPane.showInputDialog(null,Language.Language[Language.Lan.MsgStart.ordinal() + Language.LSelect],"input",JOptionPane.QUESTION_MESSAGE);
 					play = new PlayEvent(Integer.parseInt(D));
 					play.start();
 				}
@@ -136,7 +138,7 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 					play.stop();
 				}
 			} catch (Exception e1) { // ¼ýÀÚ°¡ ¾Æ´Ñ ¼ö°¡ ÀÔ·ÂµÇ¾úÀ»¶§ ÀÇ error ¸Þ½ÃÁö
-				JOptionPane.showMessageDialog(null, "ÀÔ·Â Çü½ÄÀÌ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
+				JOptionPane.showMessageDialog(null,Language.Language[Language.Lan.MsgError.ordinal() + Language.LSelect]);
 			}
 		}
 		@Override

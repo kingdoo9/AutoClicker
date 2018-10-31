@@ -12,6 +12,7 @@ public class Language {
 			 								"Which language would you choose?",	"Hold-On Setting", "Color Changed",
 			 								"( Hold-On Routines, When the Color comes out. )","( If Color Changed, Then Continue. )",
 			 								"Input Number", "Go there", "general settings", "advanced settings",
+			 								"How many times will you repeat?", "Input type doesn't correct.",
 			 								
 
 			 								
@@ -24,7 +25,8 @@ public class Language {
 			 								 "시작 좌표 :","종료 좌표 :", "정말로 새로만드시겠습니까?",
 			 								 "어떤 언어를 선택하시겠습니까?", "멈춤 설정" , "색 변경 설정",
 			 								 "( 설정한 색이 나올때까지 잠시 대기합니다. )", "( 색이 변경되면 그때 다시 진행합니다. )",
-				 							 "숫자를 입력해 주세요.", "좌표로 가기", "일반 설정", "고급 설정"
+				 							 "숫자를 입력해 주세요.", "좌표로 가기", "일반 설정", "고급 설정",
+				 							 "몇번 반복하시겠습니까?", "입력 형식이 올바르지 않습니다."
 			 								 
 			 								 };
 	
@@ -37,7 +39,8 @@ public class Language {
 		 					SPosition, EPosition , MsgNFile,
 		 					MsgLanguage, HSetting, CSetting,
 		 					MsgHSetting, MsgCSetting,
-		 					InputNumber, gothere, general_settings , advanced_settings
+		 					InputNumber, gothere, general_settings , advanced_settings,
+		 					MsgStart, MsgError
 	 						};
 	 
 	 public static int LSelect = 0;
