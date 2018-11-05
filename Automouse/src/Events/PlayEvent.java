@@ -32,7 +32,7 @@ public class PlayEvent extends Thread implements Runnable{
 				StackColor.add(data.getRGB());
 			}
 			if(data.getName().equals("Color End")) {
-				StackColor.pop();
+				data.setRGB(StackColor.pop());
 			}
 			if(!data.getName().equals("Color Start")&&!data.getName().equals("Color End")) {
 				data.setRGB(StackColor.peek());
@@ -125,18 +125,24 @@ public class PlayEvent extends Thread implements Runnable{
 								StackColor.add(data.getRGB());
 								ColorCount = 0;
 							}
-						}
-						
-						//changed-Color 버튼이 눌러져 있는 경우, 색이 다른색으로 바뀔때까지 마냥 대기함
-						if(data.isChangedColor()) {
-							while(true) {
-								Thread.sleep(100);
-								bot.mouseMove(data.getSmouseX(), data.getSmouseY());
-								checkPoint(data.getSmouseX(), data.getSmouseY());
-								
-								if(!data.getRGB().equals(bot.getPixelColor(data.getSmouseX(), data.getSmouseY())))break;
+							
+							//changed-Color 버튼이 눌러져 있는 경우, 색이 다른색으로 바뀔때까지 마냥 대기함
+							if(data.isChangedColor()) {
+								while(true) {
+									Thread.sleep(100);
+									bot.mouseMove(data.getSmouseX(), data.getSmouseY());
+									checkPoint(data.getSmouseX(), data.getSmouseY());
+									
+									if(!data.getRGB().equals(bot.getPixelColor(data.getSmouseX(), data.getSmouseY())))break;
+								}
+							}
+						}else {
+							for(; j<Constant.data.size(); j++) { //만약 색조건을 만족시키지 못했다면 Color End 까지 이동
+								if(Constant.data.elementAt(j).getName().equals("Color End") && Constant.data.elementAt(j).getRGB().equals(data.getRGB())) break;
 							}
 						}
+						
+
 						break;
 					
 					//데이터 이름이 Color End이면

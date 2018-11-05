@@ -45,11 +45,13 @@ public class RoutinePanel extends PanelSetting{
 		for(int i=(Page-1)*9; i<DataSize && i<Page*9; i++) { //(페이지-1)*9 부터 데이터를 불러와서 9개까지 화면에 표시
 			ButtonSetting button = new ButtonSetting(Constant.data.elementAt(i).getName(),Integer.toString(DataNum), 1, BoundY, 248, 33);
 			button.addActionListener(new myActionListener());
-			if(play.isAlive() && i == play.getJ()) button.setBackground(new Color(223,223,223));
+			if(play.isAlive() && i == play.getJ()) button.setBackground(new Color(223,223,223)); // 프로그램이 시작되었을때 지금위치를 표시해줌
+			if(RS.getSee_Focus() && i == RS.getNumberData()) button.setBackground(new Color(223,223,223)); // 버튼을 클릭했을때 그 버튼의 위치를 표시해줌
 			this.add(button);
 			DataNum++;
 			BoundY += 34; //각 버튼끼리 떨어져있는 거리
 		}
+		
 		
 
 		

@@ -32,7 +32,8 @@ public class RightSettingPanel extends PanelSetting{
 	}
 	
 	public Boolean getSee_Focus() {return see_Focus;} //이 페이지가 활성화 되었는지를 return. (FramePanel에서 사용함.)
-	public void onSee_Focus() {this.see_Focus = true;} //이 페이지를 보여주고 키입력이 되도록 만듬.(SettingPanel class에서 사용함.) 
+	public void onSee_Focus() {this.see_Focus = true;} //이 페이지를 보여주고 키입력이 되도록 만듬.(SettingPanel class에서 사용함.)
+	public int getNumberData() {return Constant.data.indexOf(Data);}
 	public void setData(DataSetting data) {
 		Data = data;
 	}
