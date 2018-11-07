@@ -124,6 +124,10 @@ public class PlayEvent extends Thread implements Runnable{
 							if(ColorCount == data.getNumber()) {
 								StackColor.add(data.getRGB());
 								ColorCount = 0;
+							}else {
+								for(; j<Constant.data.size(); j++) { //만약 색조건을 만족시키지 못했다면 Color End 까지 이동
+									if(Constant.data.elementAt(j).getName().equals("Color End") && Constant.data.elementAt(j).getRGB().equals(data.getRGB())) break;
+								}
 							}
 							
 							//changed-Color 버튼이 눌러져 있는 경우, 색이 다른색으로 바뀔때까지 마냥 대기함
