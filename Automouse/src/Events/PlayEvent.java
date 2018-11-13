@@ -45,11 +45,11 @@ public class PlayEvent extends Thread implements Runnable{
 	public int getJ() {return j;}
 	
 	public void checkPoint(int dataX, int dataY) { //다양한 해상도를 호환가능하게 설정. 마우스 위치가 실제와다르더라도 정확한 지점을 찾아감.
-		for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != dataX && y != dataY; x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
-			int a, b;
+		for(double x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != dataX && y != dataY; x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
+			double a, b;
 			a = x-dataX;
 			b = y-dataY;
-			bot.mouseMove(x-a, y-b);
+			bot.mouseMove((int)(x-a), (int)(y-b));
 		}
 	}
 	

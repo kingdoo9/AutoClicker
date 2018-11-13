@@ -28,15 +28,25 @@ public class LeftPanel extends PanelSetting{
 		// TODO Auto-generated method stub
 		this.removeAll();
 		
+		Constant.LeftWidth = this.getWidth();
+		Constant.LeftHeight = this.getHeight();
 		
+		this.setBounds(0,0,Constant.PreferSize(1000, 500,Constant.FrameWidth),Constant.PreferSize(500, 465,Constant.Frameheight));
 		//저장, 불러오기 버튼
-		save = new ButtonSetting(Language.Language[Language.Lan.Save.ordinal()+Language.LSelect],"Save", 10, 420, 80, 30); // 저장 버튼을 x=10,y=420 떨어진곳에 크기 80 X 30 으로 버튼 생성
+		save = new ButtonSetting(Language.Language[Language.Lan.Save.ordinal()+Language.LSelect],"Save",//아래는 크기설정
+				Constant.PreferSize(500, 10,this.getWidth()), Constant.PreferSize(465, 420,this.getHeight()), Constant.PreferSize(500, 80,this.getWidth()), Constant.PreferSize(500, 30,this.getHeight())); // 저장 버튼을 x=10,y=420 떨어진곳에 크기 80 X 30 으로 버튼 생성(가변)
 		save.addActionListener(new myActionListener()); //버튼 클릭시 설정은 하단에 프로그래밍함.
-		load = new ButtonSetting(Language.Language[Language.Lan.Load.ordinal()+Language.LSelect],"Load", 100, 420, 80, 30); // 불러오기 버튼을 x=100,y=420 떨어진곳에 크기 80 X 30 으로 버튼 생성
+		
+		load = new ButtonSetting(Language.Language[Language.Lan.Load.ordinal()+Language.LSelect],"Load",//아래는 크기설정
+				Constant.PreferSize(500, 100,this.getWidth()), Constant.PreferSize(465, 420,this.getHeight()), Constant.PreferSize(500, 80,this.getWidth()), Constant.PreferSize(500, 30,this.getHeight())); // 불러오기 버튼을 x=100,y=420 떨어진곳에 크기 80 X 30 으로 버튼 생성(가변)
 		load.addActionListener(new myActionListener()); //버튼 클릭시 설정은 하단에 프로그래밍함.
-		New = new ButtonSetting(Language.Language[Language.Lan.New.ordinal()+Language.LSelect],"New", 310, 420, 80, 30); // 불러오기 버튼을 x=100,y=420 떨어진곳에 크기 80 X 30 으로 버튼 생성
+		
+		New = new ButtonSetting(Language.Language[Language.Lan.New.ordinal()+Language.LSelect],"New",//아래는 크기설정
+				Constant.PreferSize(500, 310,this.getWidth()), Constant.PreferSize(465, 420,this.getHeight()), Constant.PreferSize(500, 80,this.getWidth()), Constant.PreferSize(500, 30,this.getHeight())); // 새로만들기 버튼을 x=100,y=420 떨어진곳에 크기 80 X 30 으로 버튼 생성(가변)
 		New.addActionListener(new myActionListener());
-		lang = new ButtonSetting(Language.Language[Language.Lan.Language.ordinal()+Language.LSelect],"Language", 410, 420, 80, 30); // 불러오기 버튼을 x=100,y=420 떨어진곳에 크기 80 X 30 으로 버튼 생성
+		
+		lang = new ButtonSetting(Language.Language[Language.Lan.Language.ordinal()+Language.LSelect],"Language",//아래는 크기설정
+				Constant.PreferSize(500, 410,this.getWidth()), Constant.PreferSize(465, 420,this.getHeight()), Constant.PreferSize(500, 80,this.getWidth()), Constant.PreferSize(500, 30,this.getHeight())); // 언어변경 버튼을 x=100,y=420 떨어진곳에 크기 80 X 30 으로 버튼 생성(가변)
 		lang.addActionListener(new myActionListener());
 	
 		this.add(save);

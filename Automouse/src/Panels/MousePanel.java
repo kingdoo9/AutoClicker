@@ -16,8 +16,8 @@ public class MousePanel extends PanelSetting{
 	
 	public void View() { //화면을 갱신한다.
 		this.removeAll();
-		
-		this.add(new NomalLabel(Language.Language[Language.Lan.mouse.ordinal()+Language.LSelect]+"   X: "+Constant.mouse.MouseGetX()+"   Y: "+Constant.mouse.MouseGetY(), 10, 10, 175, 20));
+		this.setBounds(Constant.PreferSize(500, 180, Constant.LeftWidth),Constant.PreferSize(465, 10, Constant.LeftHeight),Constant.PreferSize(500, 195, Constant.LeftWidth),Constant.PreferSize(465, 40, Constant.LeftHeight));
+		this.add(new NomalLabel(Language.Language[Language.Lan.mouse.ordinal()+Language.LSelect]+"   X: "+Constant.mouse.MouseGetX()+"   Y: "+Constant.mouse.MouseGetY(), Constant.PreferSize(195, 10, this.getWidth()),Constant.PreferSize(40, 10, this.getHeight()),Constant.PreferSize(195, 175, this.getWidth()),Constant.PreferSize(40, 20, this.getHeight())));
 		
 		this.repaint();
 	}

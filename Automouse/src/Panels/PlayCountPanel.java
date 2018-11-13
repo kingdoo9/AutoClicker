@@ -2,6 +2,7 @@ package Panels;
 
 import java.awt.Color;
 
+import Constants.Constant;
 import Events.PlayEvent;
 import Labels.NomalLabel;
 import Setting.PanelSetting;
@@ -17,6 +18,7 @@ public class PlayCountPanel extends PanelSetting {
 
 	public void View(PlayEvent play) {
 		this.removeAll();
+		this.setBounds(Constant.PreferSize(500, 385, Constant.LeftWidth),Constant.PreferSize(465, 10, Constant.LeftHeight),Constant.PreferSize(500, 105, Constant.LeftWidth),Constant.PreferSize(465, 40, Constant.LeftHeight));
 		if(play.isAlive()) {
 			Runtimes = play.getRuntimes(); // 프로그램이 시작중이라면 몇번 돌아갔는지를 반환
 			RepeatCount = play.getRepeatN(); // 프로그램이 시작중이라면 몇번 돌아가야 하는지를 반환
@@ -24,7 +26,7 @@ public class PlayCountPanel extends PanelSetting {
 			Runtimes = 0; //프로그램이 종료상태라면 0을 출력
 			RepeatCount = 0;
 		}
-		this.add(new NomalLabel("P : " + Integer.toString(Runtimes) + " / " + Integer.toString(RepeatCount) , 10, 10, 100, 20));
+		this.add(new NomalLabel("P : " + Integer.toString(Runtimes) + " / " + Integer.toString(RepeatCount) , Constant.PreferSize(105, 10, this.getWidth()),Constant.PreferSize(40, 10, this.getHeight()),Constant.PreferSize(105, 100, this.getWidth()),Constant.PreferSize(40, 20, this.getHeight())));
 
 		this.repaint();
 		
