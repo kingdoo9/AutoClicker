@@ -13,14 +13,12 @@ import Setting.PanelSetting;
 
 public class SettingPanel extends PanelSetting{
 	private static final long serialVersionUID = 1L;
-	private static RightSettingPanel Rightsetting;
 	private static ButtonSetting Click, Drag, Delay, ColorS, ColorE;
 	private static RightPanel normal, details;
 	
-	public SettingPanel(int x, int y, int width, int height, Color color, RightSettingPanel rightsetting) {
+	public SettingPanel(int x, int y, int width, int height, Color color) {
 		super(x, y, width, height, color); //대부분 설정은 상위class인 PanelSetting에 있음.
 		// TODO Auto-generated constructor stub
-		Rightsetting = rightsetting; //버튼에서 쓰기위해 전역변수로 선언함.
 	}
 	
 	public void View() {
@@ -66,29 +64,29 @@ public class SettingPanel extends PanelSetting{
 			// TODO Auto-generated method stub
 			switch(e.getActionCommand()) {
 			case "Click Setting": 
-				Rightsetting.onSee_Focus(); //오른쪽 페이지를 보이게끔 설정
-				Rightsetting.setData(new Data.Click()); //새롭게 데이터를 설정.
-				Rightsetting.view();
+				Constant.RightP.onSee_Focus(); //오른쪽 페이지를 보이게끔 설정
+				Constant.RightP.setData(new Data.Click()); //새롭게 데이터를 설정.
+				Constant.RightP.view();
 				break;
 			case "Drag Setting": 
-				Rightsetting.onSee_Focus();
-				Rightsetting.setData(new Data.Drag());
-				Rightsetting.view();
+				Constant.RightP.onSee_Focus();
+				Constant.RightP.setData(new Data.Drag());
+				Constant.RightP.view();
 				break;
 			case "Delay Setting": 
-				Rightsetting.onSee_Focus();
-				Rightsetting.setData(new Data.Delay());
-				Rightsetting.view();
+				Constant.RightP.onSee_Focus();
+				Constant.RightP.setData(new Data.Delay());
+				Constant.RightP.view();
 				break;
 			case "Color Start": 
-				Rightsetting.onSee_Focus();
-				Rightsetting.setData(new Data.ColorS());
-				Rightsetting.view();
+				Constant.RightP.onSee_Focus();
+				Constant.RightP.setData(new Data.ColorS());
+				Constant.RightP.view();
 				break;
 			case "Color End":
-				Rightsetting.onSee_Focus();
-				Rightsetting.setData(new Data.ColorE());
-				Rightsetting.view();
+				Constant.RightP.onSee_Focus();
+				Constant.RightP.setData(new Data.ColorE());
+				Constant.RightP.view();
 				break;
 				
 			}

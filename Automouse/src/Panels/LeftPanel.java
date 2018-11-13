@@ -17,7 +17,7 @@ import Setting.PanelSetting;
 
 public class LeftPanel extends PanelSetting{
 	private static final long serialVersionUID = 1L;
-	private ButtonSetting save, load, New, lang;
+	private ButtonSetting save, load, New, setting;
 	private RoutineData RD;
 	
 	public LeftPanel(int x, int y, int width, int height, Color color) {
@@ -45,14 +45,14 @@ public class LeftPanel extends PanelSetting{
 				Constant.PreferSize(500, 310,this.getWidth()), Constant.PreferSize(465, 420,this.getHeight()), Constant.PreferSize(500, 80,this.getWidth()), Constant.PreferSize(500, 30,this.getHeight())); // 새로만들기 버튼을 x=100,y=420 떨어진곳에 크기 80 X 30 으로 버튼 생성(가변)
 		New.addActionListener(new myActionListener());
 		
-		lang = new ButtonSetting(Language.Language[Language.Lan.Language.ordinal()+Language.LSelect],"Language",//아래는 크기설정
+		setting = new ButtonSetting(Language.Language[Language.Lan.Language.ordinal()+Language.LSelect],"Language",//아래는 크기설정
 				Constant.PreferSize(500, 410,this.getWidth()), Constant.PreferSize(465, 420,this.getHeight()), Constant.PreferSize(500, 80,this.getWidth()), Constant.PreferSize(500, 30,this.getHeight())); // 언어변경 버튼을 x=100,y=420 떨어진곳에 크기 80 X 30 으로 버튼 생성(가변)
-		lang.addActionListener(new myActionListener());
+		setting.addActionListener(new myActionListener());
 	
 		this.add(save);
 		this.add(load);
 		this.add(New);
-		this.add(lang);
+		this.add(setting);
 	
 	}
 	
@@ -85,7 +85,7 @@ public class LeftPanel extends PanelSetting{
 					if(Ok == 0) Constant.data.removeAllElements();
 					break;
 					
-				case "Language": // 버튼의 입력이 Language이면
+				case "setting": // 버튼의 입력이 Language이면
 					int lan = JOptionPane.showOptionDialog(null, Language.Language[Language.Lan.MsgLanguage.ordinal()+Language.LSelect], "new", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, Language.Choose, null);
 					
 					if(lan == 0)Language.LSelect = 0;

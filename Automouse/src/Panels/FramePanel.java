@@ -18,7 +18,6 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 	private GThread runner =new GThread(); //¸Å ½Ã°£¸¶´Ù È­¸éÀ» °»½ÅÇØÁÖ´Â Thread
 	private MousePanel Mouse;
 	private Container content;
-	private RightSettingPanel rightsetting;
 	private RoutinePanel Routine;
 	private GuidePanel Guide;
 	private SettingPanel Setting;
@@ -43,14 +42,13 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 		content = this.getContentPane();
 		content.setFocusable(true);
 		content.addKeyListener(new myActionListener()); //ÄÁÅ×ÀÌ³Ê Å° ÀÔ·ÂÀ» Ãß°¡ÇØÁØ´Ù. °¡Àå ÇÏ´Ü¿¡ Å° ÀÔ·Â ½Ã Çàµ¿À» ÇÁ·Î±×·¡¹ÖÇÔ.		
-		//¿À¸¥ÂÊ ¾ÈÂÊ ÆÐ³Î
-		rightsetting = new RightSettingPanel(10, 10, 475, 445, Color.white);		
+	
 		//·çÆ¾ ÆÐ³Î
-		Routine = new RoutinePanel(10,60,250,350,Color.white,rightsetting);		
+		Routine = new RoutinePanel(10,60,250,350,Color.white);		
 		//F5, F6¸¦ ´©¸£½Ã¿À ÆÐ³Î
 		Guide = new GuidePanel(10,10,160,40,Color.white);	
 		//¼³Á¤ ÆÐ³Î
-		Setting = new SettingPanel(270,60,220,350,Color.white,rightsetting);	
+		Setting = new SettingPanel(270,60,220,350,Color.white);	
 		//¿À¸¥ÂÊ ÆÐ³Î
 		right = new RightPanel(500,0,495,465,new Color(213,242,211));			
 		//¿ÞÂÊ ÆÐ³Î
@@ -62,9 +60,6 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 		//Play È½¼ö¸¦ ³ªÅ¸³»´Â ÆÐ³Î
 		PlayCount = new PlayCountPanel(385, 10, 105, 40, Color.white);
 		
-
-
-
 		content.add(left); //ÀüÃ¼È­¸é¿¡ ¿ÞÂÊÆäÀÌÁö¿Í ¿À¸¥ÂÊÆäÀÌÁö¸¦ ³ÖÀ½.
 		content.add(right);
 		
@@ -79,30 +74,29 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 			while (true){ 
 		        try{ 
 					FrameSize();
-					//play°¡ ½ÃÀÛµÇ¸é °è¼Ó Æ÷Ä¿½º Àâ¾ÆÁÜ
-					if(play.isAlive()) {content.setFocusable(true); content.requestFocus();}
-					
-					
-
-					Routine.View(play); //·çÆ¾ È­¸é(¿ÞÂÊÁß¾Ó)°ú ¸¶¿ì½º È­¸é(À§ÂÊ Áß¾Ó)Àº  Ç×»ó ¹Ù²îµµ·Ï ÇØ¾ßÇÏ¹Ç·Î ¼³Á¤ÇÔ.
-					Mouse.View();
+							
 					left.View();
-					Guide.View();
-					Setting.View();
+					right.View();	
+					
+					if(Constant.FrameWidth >300 && Constant.Frameheight>300) {
+						Routine.View(play); //·çÆ¾ È­¸é(¿ÞÂÊÁß¾Ó)°ú ¸¶¿ì½º È­¸é(À§ÂÊ Áß¾Ó)Àº  Ç×»ó ¹Ù²îµµ·Ï ÇØ¾ßÇÏ¹Ç·Î ¼³Á¤ÇÔ.
+						Mouse.View();
+						Guide.View();
+						Setting.View();		
+	
+						left.add(Routine); //¿ÞÂÊ ÆäÀÌÁö¿¡ °¢ È­¸éµéÀ» ³ÖÀ½
+						left.add(Mouse);
+						left.add(Guide);
+						left.add(Setting);
+						right.add(Constant.RightP); //¿À¸¥ÂÊ ÆäÀÌÁö¿¡ °í±Þ¼³Á¤À» ³ÖÀ½.
+					}
+					
 					PlayCount.View(play);
-					right.View();
-					
-					left.add(Routine); //¿ÞÂÊ ÆäÀÌÁö¿¡ °¢ È­¸éµéÀ» ³ÖÀ½
-					left.add(Mouse);
-					left.add(Guide);
-					left.add(Setting);
 					left.add(PlayCount);
-					right.add(rightsetting); //¿À¸¥ÂÊ ÆäÀÌÁö¿¡ °í±Þ¼³Á¤À» ³ÖÀ½.
-					
 					
 					//¿À¸¥ÂÊ ÆäÀÌÁö(¼³Á¤È­¸é)ÀÌ ÄÑÁ®ÀÖ´Ù¸é ¸ÞÀÎ È­¸éÀÇ Å° ÀÔ·ÂÀÌ ¾ÈµÇ°Ô ¸·´Â´Ù.
-					if(!rightsetting.getSee_Focus()) {
-						rightsetting.setFocusable(false);
+					if(!Constant.RightP.getSee_Focus()) {
+						Constant.RightP.setFocusable(false);
 						if(!content.isFocusable()) {
 							content.setFocusable(true);
 							content.requestFocus();
@@ -110,17 +104,20 @@ public class FramePanel extends JFrame{ //JFrame ÇÔ¼ö. ÇÁ·¹ÀÓÀÇ Æ²À» Â¥¸ç ¸Å ½Ã°
 					}
 					else {
 						if(Constant.FrameWidth != F_W || Constant.Frameheight != F_H) {
-							rightsetting.view();
+							Constant.RightP.view();
 							F_W = Constant.FrameWidth;
 							F_H = Constant.Frameheight;
+
 						}
 						content.setFocusable(false);
-						rightsetting.setFocusable(true);
-						rightsetting.requestFocus();
+						Constant.RightP.setFocusable(true);
+						Constant.RightP.requestFocus();
 						
 					}
-
 					
+					//play°¡ ½ÃÀÛµÇ¸é °è¼Ó Æ÷Ä¿½º Àâ¾ÆÁÜ
+					if(play.isAlive()) {content.setFocusable(true); content.requestFocus();}
+
 					right.repaint();
 					left.repaint();
 					content.repaint(); //È­¸éÀ» °»½ÅÇÑ´Ù.

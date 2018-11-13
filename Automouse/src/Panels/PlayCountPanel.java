@@ -18,7 +18,10 @@ public class PlayCountPanel extends PanelSetting {
 
 	public void View(PlayEvent play) {
 		this.removeAll();
-		this.setBounds(Constant.PreferSize(500, 385, Constant.LeftWidth),Constant.PreferSize(465, 10, Constant.LeftHeight),Constant.PreferSize(500, 105, Constant.LeftWidth),Constant.PreferSize(465, 40, Constant.LeftHeight));
+		if(Constant.FrameWidth > 300 && Constant.Frameheight > 300)
+			this.setBounds(Constant.PreferSize(500, 385, Constant.LeftWidth),Constant.PreferSize(465, 10, Constant.LeftHeight),Constant.PreferSize(500, 105, Constant.LeftWidth),Constant.PreferSize(465, 40, Constant.LeftHeight));
+		else this.setBounds(10,10,Constant.PreferSize(500, 450, Constant.LeftWidth),80);
+		
 		if(play.isAlive()) {
 			Runtimes = play.getRuntimes(); // 프로그램이 시작중이라면 몇번 돌아갔는지를 반환
 			RepeatCount = play.getRepeatN(); // 프로그램이 시작중이라면 몇번 돌아가야 하는지를 반환

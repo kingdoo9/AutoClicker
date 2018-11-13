@@ -13,15 +13,13 @@ import Setting.PanelSetting;
 
 public class RoutinePanel extends PanelSetting{
 	private static final long serialVersionUID = 1L;
-	private RightSettingPanel RS;
 	private int BoundY=1, DataNum, DataSize, Page=1;
 	private NomalLabel pages;
 	private ButtonSetting prev, next;
 	private PlayEvent Play;
 
-	public RoutinePanel(int x, int y, int width, int height, Color color, RightSettingPanel rightsetting) {
+	public RoutinePanel(int x, int y, int width, int height, Color color) {
 		super(x, y, width, height, color);
-		this.RS = rightsetting;
 	}
 	
 	public void View(PlayEvent play) { //FramePanel로 인해 항상 화면 갱신
@@ -47,7 +45,7 @@ public class RoutinePanel extends PanelSetting{
 			ButtonSetting button = new ButtonSetting(Constant.data.elementAt(i).getName(),Integer.toString(DataNum), 1, BoundY, Constant.PreferSize(250, 248, this.getWidth()), Constant.PreferSize(350, 33, this.getHeight()));
 			button.addActionListener(new myActionListener());
 			if(play.isAlive() && i == play.getJ()) button.setBackground(new Color(223,223,223)); // 프로그램이 시작되었을때 지금위치를 표시해줌
-			if(RS.getSee_Focus() && i == RS.getNumberData()) button.setBackground(new Color(223,223,223)); // 버튼을 클릭했을때 그 버튼의 위치를 표시해줌
+			if(Constant.RightP.getSee_Focus() && i == Constant.RightP.getNumberData()) button.setBackground(new Color(223,223,223)); // 버튼을 클릭했을때 그 버튼의 위치를 표시해줌
 			this.add(button);
 			DataNum++;
 			BoundY += Constant.PreferSize(350, 34, this.getHeight()); //각 버튼끼리 떨어져있는 거리
@@ -79,9 +77,9 @@ public class RoutinePanel extends PanelSetting{
 					break;
 					
 				default :
-					RS.onSee_Focus();
-					RS.setData(Constant.data.elementAt(Integer.parseInt(e.getActionCommand())));
-					RS.view();
+					Constant.RightP.onSee_Focus();
+					Constant.RightP.setData(Constant.data.elementAt(Integer.parseInt(e.getActionCommand())));
+					Constant.RightP.view();
 					break;
 				
 				
