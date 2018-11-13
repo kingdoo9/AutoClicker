@@ -19,7 +19,7 @@ public class RightPanel extends PanelSetting{
 		Constant.RightWidth = this.getWidth();
 		Constant.RightHeight = this.getHeight();
 		
-		this.setBounds(Constant.PreferSize(1000, 500, Constant.FrameWidth),0,Constant.PreferSize(1000, 495, Constant.FrameWidth),Constant.PreferSize(500, 465, Constant.Frameheight));
+		this.setBounds(Constant.PreferSize(1000, 500, Constant.FrameWidth),0,Constant.PreferSize(1000, 495, Constant.FrameWidth),Constant.PreferSize(455, 455, Constant.Frameheight-45));
 	}
 
 }
