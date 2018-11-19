@@ -7,8 +7,8 @@ import java.awt.event.ActionListener;
 import Constants.Constant;
 import Constants.Language;
 import Events.PlayEvent;
-import Labels.NomalLabel;
 import Setting.ButtonSetting;
+import Setting.NomalLabel;
 import Setting.PanelSetting;
 
 public class RoutinePanel extends PanelSetting{

@@ -1,10 +1,8 @@
-package Labels;
+package Setting;
 
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
-
-import Setting.LabelSetting;
 
 public class InputLabel extends LabelSetting { //오른쪽 페이지에서 클릭수등을 표시하기 위해 만든 Label 설정 class
 	private static final long serialVersionUID = 1L;

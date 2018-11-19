@@ -8,19 +8,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import Constants.Constant;
 import Constants.Language;
-import Labels.InputLabel;
-import Labels.NomalLabel;
 import Setting.ButtonSetting;
 import Setting.DataSetting;
+import Setting.InputLabel;
+import Setting.NomalLabel;
 import Setting.PanelSetting;
 
 public class RightSettingPanel extends PanelSetting{
 	private static final long serialVersionUID = 1L;
-	private ButtonSetting save, delete, set1, set2, set3, up, down, GoS, GoE; //버튼들 설정
+	private ButtonSetting save, delete, set1, set2, set3, set4, set5, set6, up, down, GoS, GoE; //버튼들 설정
 	private DataSetting Data;
 	private boolean see_Focus = false; //화면 보여짐, 화면 키입력을 되도록 하는 boolean변수
 	
@@ -41,7 +42,7 @@ public class RightSettingPanel extends PanelSetting{
 	
 	public void view() {	//오른쪽 페이지를 표시. 
 		this.removeAll();
-		this.setBounds(Constant.PreferSize(495, 10, Constant.RightWidth),Constant.PreferSize(465, 10, Constant.RightHeight),Constant.PreferSize(495, 475, Constant.RightWidth),Constant.PreferSize(465, 445, Constant.RightHeight));
+		this.setBounds(Constant.PreferSize(495, 10, Constant.RightWidth),Constant.PreferSize(455, 10, Constant.RightHeight),Constant.PreferSize(495, 465, Constant.RightWidth),Constant.PreferSize(455, 425, Constant.RightHeight));
 		int j = Constant.PreferSize(465, 20, this.getHeight()); //일정부분씩 떨어뜨려 설정들을 표시해주게 만든다.
 			
 		for(char i : Data.getKind()) { //각 데이터마다 종류를 가지고있는데 그 종류대로 다음을 표시함. 'Data 패키지' 의 각 설정을 참고.
@@ -107,6 +108,22 @@ public class RightSettingPanel extends PanelSetting{
 				check.addActionListener(new myActionListener());
 				check.setActionCommand("changed");
 				this.add(check);
+			}else if(i == 'F') { //폰트 사이즈 변경
+				this.add(new NomalLabel(Language.Language[Language.Lan.Font.ordinal()+Language.LSelect], Constant.PreferSize(475, 20, this.getWidth()),j,Constant.PreferSize(475, 150, this.getWidth()),Constant.PreferSize(445, 30, this.getHeight())));
+				this.add(new InputLabel(Integer.toString(Data.getNumber()), Constant.PreferSize(475, 180, this.getWidth()),j,Constant.PreferSize(475, 80, this.getWidth()),Constant.PreferSize(445, 30, this.getHeight())));
+				set4 = new ButtonSetting(Language.Language[Language.Lan.setup.ordinal()+Language.LSelect],"Font Set-up", Constant.PreferSize(475, 270, this.getWidth()),j+Constant.PreferSize(445, 5, this.getHeight()),Constant.PreferSize(475, 80, this.getWidth()),Constant.PreferSize(445, 20, this.getHeight()));
+				set4.addActionListener(new myActionListener());
+				this.add(set4);
+			}else if(i == 'L') { //색이 바뀔때까지 대기할 것인가.
+				this.add(new NomalLabel(Language.Language[Language.Lan.Language.ordinal()+Language.LSelect], Constant.PreferSize(475, 20, this.getWidth()),j,Constant.PreferSize(475, 150, this.getWidth()),Constant.PreferSize(445, 30, this.getHeight())));
+				set5 = new ButtonSetting("English","Eng", Constant.PreferSize(475, 180, this.getWidth()),j,Constant.PreferSize(475, 80, this.getWidth()),Constant.PreferSize(445, 30, this.getHeight()));
+				set5.addActionListener(new myActionListener());
+				this.add(set5);
+				set6 = new ButtonSetting("한국어","Kor", Constant.PreferSize(475, 280, this.getWidth()),j,Constant.PreferSize(475, 80, this.getWidth()),Constant.PreferSize(445, 30, this.getHeight()));
+				set6.addActionListener(new myActionListener());
+				this.add(set6);
+			}else if(i == 'P') { //색이 바뀔때까지 대기할 것인가.
+				
 			}
 			j += Constant.PreferSize(465, 60, this.getHeight()); //각 조건들 사이에는 Y축으로 60의 간격이 있음.
 		}
@@ -155,9 +172,15 @@ public class RightSettingPanel extends PanelSetting{
 					Data.setDelay(Integer.parseInt(D));
 		        	view();
 					break;
+				case "Font Set-up": //대기 시간을 입력받아 저장
+					String F = JOptionPane.showInputDialog(null,Language.Language[Language.Lan.InputNumber.ordinal()+Language.LSelect],"input",JOptionPane.QUESTION_MESSAGE);
+					Data.setNumber(Integer.parseInt(F));
+		        	view();
+					break;
 				case "Save": //Data에 값을 저장함. 만약 저장되어있는 값이면 무시
 					see_Focus = false;
-					if(!Data.isSaved()) { // 저장되어있는 값이 아니라면
+					if(Data.getName().equals("Setting")) {}
+					else if(!Data.isSaved()) { // 저장되어있는 값이 아니라면
 						Constant.data.add(Data);
 						Data.setSaved(true);
 					}
@@ -174,12 +197,10 @@ public class RightSettingPanel extends PanelSetting{
 					if(Data.isHoldon()) Data.setHoldon(false);
 					else Data.setHoldon(true);
 					break;
-
 				case "changed": //체크박스를 체크시키거나 언체크시킴.
 					if(Data.isChangedColor()) Data.setChangedColor(false);
 					else Data.setChangedColor(true);
-					break;
-					
+					break;			
 				case "Up": // Data를 Routine에서 한칸 위로 올림.
 					if(Data.isSaved()) {
 						if(Constant.data.indexOf(Data)!=0) {
@@ -188,8 +209,7 @@ public class RightSettingPanel extends PanelSetting{
 							Constant.data.insertElementAt(Data, temp-1);
 						}
 					}
-					break;
-					
+					break;			
 				case "Down": // Data를 Routine에서 한칸 아래로 내림.
 					if(Data.isSaved()) {
 						if(Constant.data.indexOf(Data) != Constant.data.size()-1) {
@@ -207,8 +227,7 @@ public class RightSettingPanel extends PanelSetting{
 						b = y-Data.getSmouseY();
 						new Robot().mouseMove(x-a, y-b);
 					}
-					break;
-				
+					break;				
 				case "GoE": // 좌표지점으로 마우스 이동시키기.
 					new Robot().mouseMove(Data.getEmouseX(), Data.getEmouseY());
 					for(int x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY(); x != Data.getEmouseX() && y != Data.getEmouseY(); x=Constant.mouse.MouseGetX(), y=Constant.mouse.MouseGetY()) {
@@ -217,6 +236,14 @@ public class RightSettingPanel extends PanelSetting{
 						b = y-Data.getEmouseY();
 						new Robot().mouseMove(x-a, y-b);
 					}
+					break;
+				case "Eng": // Data를 Routine에서 한칸 아래로 내림.
+					Language.LSelect = 0;
+					view();
+					break;
+				case "Kor": // Data를 Routine에서 한칸 아래로 내림.
+					Language.LSelect = Language.Language.length/2;
+					view();
 					break;
 				}
 				

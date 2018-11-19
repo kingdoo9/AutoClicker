@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import Constants.Constant;
 import Events.PlayEvent;
-import Labels.NomalLabel;
+import Setting.NomalLabel;
 import Setting.PanelSetting;
 
 public class PlayCountPanel extends PanelSetting {

@@ -1,6 +1,4 @@
-package Labels;
-
-import Setting.LabelSetting;
+package Setting;
 
 public class NomalLabel extends LabelSetting {
 	private static final long serialVersionUID = 1L;

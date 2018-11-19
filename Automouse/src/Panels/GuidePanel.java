@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import Constants.Constant;
 import Constants.Language;
-import Labels.NomalLabel;
+import Setting.NomalLabel;
 import Setting.PanelSetting;
 
 public class GuidePanel extends PanelSetting{
