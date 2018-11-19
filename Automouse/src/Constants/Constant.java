@@ -15,7 +15,7 @@ public class Constant {
 	public static int Frameheight = 500;
 	public static int LeftWidth, LeftHeight; //왼쪽 패널의 크기
 	public static int RightWidth, RightHeight; //오른쪽 패널의 크기
-	public static int FontSize; //폰트 사이즈
+	public static int FontSize, Page=1; //폰트 사이즈, routine 패널의 페이지
 	public static Setting setting = new Setting(); //설정 패널
 	public static RightSettingPanel RightP = new RightSettingPanel(10, 10, 475, 445, Color.white); // 오른쪽 설정패널
 

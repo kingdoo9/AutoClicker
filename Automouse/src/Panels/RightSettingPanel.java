@@ -183,6 +183,7 @@ public class RightSettingPanel extends PanelSetting{
 					else if(!Data.isSaved()) { // 저장되어있는 값이 아니라면
 						Constant.data.add(Data);
 						Data.setSaved(true);
+						if(Constant.data.size() > 9 && Constant.data.size()%9 == 1) Constant.Page++;
 					}
 					view();
 					break;
@@ -207,6 +208,7 @@ public class RightSettingPanel extends PanelSetting{
 							int temp = Constant.data.indexOf(Data);
 							Constant.data.removeElement(Data);
 							Constant.data.insertElementAt(Data, temp-1);
+							Constant.Page = (temp-1)/9+1;
 						}
 					}
 					break;			
@@ -216,6 +218,7 @@ public class RightSettingPanel extends PanelSetting{
 							int temp = Constant.data.indexOf(Data);
 							Constant.data.removeElement(Data);
 							Constant.data.insertElementAt(Data, temp+1);
+							Constant.Page = (temp+1)/9+1;
 						}
 					}
 					break;
